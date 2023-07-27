@@ -68,6 +68,7 @@ public class BottomBarController implements Initializable {
     	mainFrame.setCenter(root);
     }
 
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
