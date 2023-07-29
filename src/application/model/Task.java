@@ -36,14 +36,11 @@ public class Task extends Data {
 
 	@Override
 	public String getInsertQuery() {
-		
 		return String.format(INSERT_TASK_QUERY, tableName, taskName, isActive);
 	}
 
 	@Override
-	public String getUpdateQuery(String oldTaskName) {
-		// TODO Auto-generated method stub
-		
+	public String getUpdateQuery(String oldTaskName) {		
 		String s =  String.format(UPDATE_TASK_QUERY, tableName, taskName, isActive, oldTaskName);
 		System.out.println(s);
 		return s;
