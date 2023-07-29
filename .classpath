@@ -6,12 +6,12 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JavaFX">
+	<classpathentry kind="lib" path="/Users/simiaowang/Desktop/sqlite-jdbc-3.42.0.0.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Users/yangwenyu/Downloads/sqlite-jdbc-3.42.0.0.jar">
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JavaFX20-X64">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
