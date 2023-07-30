@@ -9,8 +9,8 @@ public class Music extends Data{
 	private boolean available = true;
 	private int price;
 	private final static String tableName = "MUSIC";
-    private static final String INSERT_TASK_QUERY = "INSERT INTO %s (musicName,available, price) " + "VALUES ('%s', '%s','%s');";
-    private static final String UPDATE_TASK_QUERY = "UPDATE %s SET available = 'false' where musicName = '%s'";
+    private static final String INSERT_MUSIC_QUERY = "INSERT INTO %s (musicName,available, price) " + "VALUES ('%s', '%s','%s');";
+    private static final String UPDATE_MUSIC_QUERY = "UPDATE %s SET available = 'false' where musicName = '%s'";
 
 
 	public Music(String name, boolean available, int price) {
@@ -41,13 +41,13 @@ public class Music extends Data{
 	@Override
 	public String getInsertQuery() {
 		
-		return String.format(INSERT_TASK_QUERY, tableName, musicName, available, price);
+		return String.format(INSERT_MUSIC_QUERY, tableName, musicName, available, price);
 	}
 
 	@Override
 	public String getUpdateQuery(String musicName) {
 		
-		String s =  String.format(UPDATE_TASK_QUERY, tableName, musicName);
+		String s =  String.format(UPDATE_MUSIC_QUERY, tableName, musicName);
 		System.out.println(s);
 		return s;
 
