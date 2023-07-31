@@ -19,7 +19,31 @@ public class DatabaseAccessor {
             };
 
             // Create the USER, PRODUCT, and ORDERS tables if they don't already exist
+            
+            String[] musicColumns = new String[] {
+            		"musicName TEXT PRIMARY KEY NOT NULL",
+                    "available BOOLEAN NOT NULL",
+                    "price INT NOT NULL",
+                    "url TEXT NOT NULL"
+                    
+            };
+           
+            
+            String[] settingColumns = new String[] {
+            		"ID TEXT PRIMARY KEY NOT NULL",
+            		"sessionLength INT NOT NULL",
+                    "breakLength INT NOT NULL",
+                    "isEndOn BOOLEAN NOT NULL",
+                    "isBackgroundOn BOOLEAN NOT NULL",
+                    "backgroundName TEXT"
+                    
+            };
+            
+            // Create the USER, PRODUCT, and ORDERS tables if they don't already exist
             createTableIfNotExists("TASK", taskColumns);
+            createTableIfNotExists("MUSIC", musicColumns);
+            createTableIfNotExists("SETTING", settingColumns);
+            
 
 
         } catch (Exception e) {
