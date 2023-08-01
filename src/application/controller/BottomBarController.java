@@ -14,6 +14,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
 public class BottomBarController implements Initializable {
+	//asidiu
 
     @FXML
     private BorderPane mainFrame;

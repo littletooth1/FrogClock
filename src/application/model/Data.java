@@ -28,7 +28,7 @@ public abstract class Data {
 	}
 	
 	
-	private static ResultSet excuateQuerySql(String sql, DatabaseAccessor db) {
+	public static ResultSet excuateQuerySql(String sql, DatabaseAccessor db) {
 		try {
             Statement statement = db.getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
@@ -49,6 +49,7 @@ public abstract class Data {
 	
 	public void updateToDB(DatabaseAccessor db, String key) {
 		String sql = getUpdateQuery(key);
+		System.out.println(sql);
 		excuateUpdateSql(sql,db);
         System.out.println("Update data successfully" + this.getClass());
 	}

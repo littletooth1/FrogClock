@@ -16,10 +16,19 @@ public class DatabaseAccessor {
             String[] taskColumns = new String[]{
                     "taskName TEXT PRIMARY KEY NOT NULL",
                     "isActive BOOLEAN NOT NULL"
+              
             };
+            
+            String[] musicColumns = new String[]{
+                    "musicName TEXT PRIMARY KEY NOT NULL",
+                    "available BOOLEAN NOT NULL",
+                    "price INT NOT NULL",
+                    "url TEXT NOT NULL"
+                    };
 
             // Create the USER, PRODUCT, and ORDERS tables if they don't already exist
             createTableIfNotExists("TASK", taskColumns);
+            createTableIfNotExists("MUSIC", musicColumns);
 
 
         } catch (Exception e) {
