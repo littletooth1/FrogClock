@@ -1,6 +1,9 @@
 package application.controller;
 
 import java.io.IOException;
+import DatabaseConnection.DatabaseAccessor;
+
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -14,6 +17,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
 public class BottomBarController implements Initializable {
+	
+	DatabaseAccessor db = new DatabaseAccessor("database.db");
 
     @FXML
     private BorderPane mainFrame;
@@ -35,7 +40,25 @@ public class BottomBarController implements Initializable {
 
     @FXML
     void settingPage(MouseEvent event) {
-    	loadPage("SettingPage");
+    	
+    	Parent root = null;
+    	
+    	try {
+    		
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/ui/" + "SettingPage" +".fxml"));
+            root = loader.load();
+
+            // 获取Controller实例并传递参数
+            SettingPageController controller = loader.getController();
+            controller.initialize(db);
+    		
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    	mainFrame.setCenter(root);
     }
 
     @FXML
@@ -64,7 +87,6 @@ public class BottomBarController implements Initializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	
     	mainFrame.setCenter(root);
     }
 

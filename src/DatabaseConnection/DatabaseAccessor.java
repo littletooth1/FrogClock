@@ -21,11 +21,11 @@ public class DatabaseAccessor {
             // Create the USER, PRODUCT, and ORDERS tables if they don't already exist
             
             String[] musicColumns = new String[] {
-            		"musicName TEXT PRIMARY KEY NOT NULL",
+            		"id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL",
+            		"musicName TEXT NOT NULL",
                     "available BOOLEAN NOT NULL",
                     "price INT NOT NULL",
                     "url TEXT NOT NULL"
-                    
             };
            
             
@@ -35,7 +35,7 @@ public class DatabaseAccessor {
                     "breakLength INT NOT NULL",
                     "isEndOn BOOLEAN NOT NULL",
                     "isBackgroundOn BOOLEAN NOT NULL",
-                    "backgroundName TEXT"
+                    "bgmID INT"
                     
             };
             
@@ -68,5 +68,6 @@ public class DatabaseAccessor {
     public Connection getConnection() {
     	return connection;
     }
+
 
 }

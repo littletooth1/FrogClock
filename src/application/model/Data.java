@@ -28,17 +28,19 @@ public abstract class Data {
 	}
 	
 	
-	private static ResultSet excuateQuerySql(String sql, DatabaseAccessor db) {
+	public static ResultSet excuateQuerySql(String sql, DatabaseAccessor db) {
 		try {
             Statement statement = db.getConnection().createStatement();
+            System.out.println(sql);
             ResultSet resultSet = statement.executeQuery(sql);
-            statement.close();
+         
+            System.out.println("Execute Query");
+//            statement.close();
             return resultSet;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 	}
-	
 	
 	
 	public void addToDB(DatabaseAccessor db) {
@@ -53,7 +55,5 @@ public abstract class Data {
         System.out.println("Update data successfully" + this.getClass());
 	}
 	
-	
-	
-	
+
 }

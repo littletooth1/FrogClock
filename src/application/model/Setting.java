@@ -1,36 +1,63 @@
 package application.model;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import DatabaseConnection.DatabaseAccessor;
+
 public class Setting extends Data {
 	private int sessionLength = 25;
 	private int breakLength = 5;
 	private boolean isEndOn = true;
 	private boolean isBackgroundOn = true;
-	private String backgroundName = "Default";
+	private int bgmID = 0;
 	
 	private final static String tableName = "SETTING";
-    private static final String INSERT_SETTING_QUERY = "INSERT INTO %s (ID, sessionLength,breakLength, isEndOn,isBackgroundOn, backgroundName) " + "VALUES ('SETTING',%s, %s,%s , %s, '%s');";
-    private static final String UPDATE_SETTING_QUERY = "UPDATE %s SET sessionLength = %s , breakLength = %s,isEndOn = %s, isBackgroundOn = %s ,backgroundName = '%s' where ID = '%s'";
-
+    private static final String INSERT_SETTING_QUERY = "INSERT INTO %s (ID, sessionLength,breakLength, isEndOn,isBackgroundOn, bgmID) " + "VALUES ('SETTING',%s, %s,%s , %s, %s);";
+    private static final String UPDATE_SETTING_QUERY = "UPDATE %s SET sessionLength = %s , breakLength = %s,isEndOn = %s, isBackgroundOn = %s ,bgmID = %s where ID = '%s'";
+    private static final String SELECT_SETTING_QUERY = "SELECT * FROM SETTING";
 	
 	public Setting() {}
 	
-	public Setting(int sessionLength, int breakLength, boolean isEndOn, boolean isBackgroundOn, String backgroundName ) {
+	public Setting(ResultSet resultSet) throws SQLException {
+		sessionLength = resultSet.getInt("sessionLength");
+		breakLength = resultSet.getInt("breakLength");
+		isEndOn = resultSet.getBoolean("isEndOn");
+		isBackgroundOn = resultSet.getBoolean("isBackgroundOn");
+		bgmID = resultSet.getInt("bgmID");
+		
+	}
+	
+	public Setting(int sessionLength, int breakLength, boolean isEndOn, boolean isBackgroundOn, int bgmID ) {
 		this.sessionLength = sessionLength;
 		this.breakLength = breakLength;
 		this.isEndOn = isEndOn;
 		this.isBackgroundOn = isBackgroundOn;
-		this.backgroundName = backgroundName;
+		this.bgmID = bgmID;
 	}
 
 	@Override
 	public String getInsertQuery() {
-		return String.format(INSERT_SETTING_QUERY, tableName, sessionLength, breakLength,isEndOn,isBackgroundOn,backgroundName);
+		return String.format(INSERT_SETTING_QUERY, tableName, sessionLength, breakLength,isEndOn,isBackgroundOn,bgmID);
 
 	}
 
 	@Override
 	public String getUpdateQuery(String key) {
-		return String.format(UPDATE_SETTING_QUERY, tableName, sessionLength, breakLength,isEndOn,isBackgroundOn,backgroundName,key);
+		return String.format(UPDATE_SETTING_QUERY, tableName, sessionLength, breakLength,isEndOn,isBackgroundOn,bgmID,key);
+	}
+	
+	
+	public static Setting getSetting(DatabaseAccessor db) {
+		ResultSet resultSet = Data.excuateQuerySql(SELECT_SETTING_QUERY, db);
+		Setting setting = null;
+		try {
+			setting = new Setting(resultSet);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return setting;
 	}
 	
 	public void sessionAddOne() {
@@ -81,12 +108,12 @@ public class Setting extends Data {
 		isBackgroundOn = backgroundOn;
 	}
 
-	public java.lang.String getBackgroundName() {
-		return backgroundName;
+	public int getBgmID() {
+		return bgmID;
 	}
 
-	public void setBackgroundName(java.lang.String backgroundName) {
-		this.backgroundName = backgroundName;
+	public void setBgmId(int bgmID) {
+		this.bgmID = bgmID;
 	}
 
 
