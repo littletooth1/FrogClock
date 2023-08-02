@@ -5,6 +5,7 @@ import DatabaseConnection.DatabaseAccessor;
 
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
@@ -50,7 +51,12 @@ public class BottomBarController implements Initializable {
 
             // 获取Controller实例并传递参数
             SettingPageController controller = loader.getController();
-            controller.initialize(db);
+            try {
+				controller.initialize(db);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
     		
 			
 		} catch (IOException e) {

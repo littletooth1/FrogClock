@@ -2,6 +2,7 @@ package application.model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import DatabaseConnection.DatabaseAccessor;
 
@@ -48,8 +49,8 @@ public class Setting extends Data {
 	}
 	
 	
-	public static Setting getSetting(DatabaseAccessor db) {
-		ResultSet resultSet = Data.excuateQuerySql(SELECT_SETTING_QUERY, db);
+	public static Setting getSetting(DatabaseAccessor db, Statement statement) {
+		ResultSet resultSet = Data.excuateQuerySql(SELECT_SETTING_QUERY, db, statement);
 		Setting setting = null;
 		try {
 			setting = new Setting(resultSet);

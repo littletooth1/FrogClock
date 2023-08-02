@@ -3,6 +3,8 @@ package application.controller;
 import application.model.Music;
 import application.model.Setting;
 
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 import DatabaseConnection.DatabaseAccessor;
@@ -123,10 +125,11 @@ public class SettingPageController {
     }
     
 	
-	public void initialize(DatabaseAccessor db) {
+	public void initialize(DatabaseAccessor db) throws SQLException {
+        Statement statement = db.getConnection().createStatement(); 
 		this.db = db;
-		setting = Setting.getSetting(db);
-		musics = Music.getBoughtMusic(db);
+		setting = Setting.getSetting(db, statement);
+		musics = Music.getBoughtMusic(db, statement);
 		sessionLengthLabel.setText("" + setting.getSessionLength());
 		breakLengthLabel.setText("" + setting.getBreakLength());
 		endOnCheckbox.setSelected(setting.isEndOn());

@@ -94,7 +94,6 @@ public class StoreController implements Initializable{
 		return;
 	}
 	
-
 	int getLeafNumber(DatabaseAccessor db) throws SQLException {
 		
         Statement statement = db.getConnection().createStatement();
