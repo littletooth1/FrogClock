@@ -16,8 +16,16 @@ public class DatabaseAccessor {
             String[] taskColumns = new String[]{
                     "taskName TEXT PRIMARY KEY NOT NULL",
                     "isActive BOOLEAN NOT NULL"
+              
             };
+            
 
+            String[] leafColumns = new String[]{
+            		"taskFinishTime TEXT PRIMARY KEY NOT NULL",
+                    "date TEXT NOT NULL",
+                    "taskName TEXT NOT NULL",
+                    "leafGot INT NOT NULL"
+                    };
             // Create the USER, PRODUCT, and ORDERS tables if they don't already exist
             
             String[] musicColumns = new String[] {
@@ -42,8 +50,8 @@ public class DatabaseAccessor {
             // Create the USER, PRODUCT, and ORDERS tables if they don't already exist
             createTableIfNotExists("TASK", taskColumns);
             createTableIfNotExists("MUSIC", musicColumns);
+            createTableIfNotExists("LEAF", leafColumns);
             createTableIfNotExists("SETTING", settingColumns);
-            
 
 
         } catch (Exception e) {

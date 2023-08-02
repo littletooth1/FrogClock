@@ -14,9 +14,12 @@ public abstract class Data {
 	
 	
 	public abstract String getInsertQuery();
-	public abstract String getUpdateQuery(String key);
+	public String getUpdateQuery(String key) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
-	private void excuateUpdateSql(String sql, DatabaseAccessor db) {
+	private static void excuateUpdateSql(String sql, DatabaseAccessor db) {
 		try {
             Statement statement = db.getConnection().createStatement();
             statement.executeUpdate(sql);
@@ -28,14 +31,10 @@ public abstract class Data {
 	}
 	
 	
-	public static ResultSet excuateQuerySql(String sql, DatabaseAccessor db) {
+	//add statement argument
+	public static ResultSet excuateQuerySql(String sql, DatabaseAccessor db, Statement statement) {
 		try {
-            Statement statement = db.getConnection().createStatement();
-            System.out.println(sql);
             ResultSet resultSet = statement.executeQuery(sql);
-         
-            System.out.println("Execute Query");
-//            statement.close();
             return resultSet;
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -51,6 +50,7 @@ public abstract class Data {
 	
 	public void updateToDB(DatabaseAccessor db, String key) {
 		String sql = getUpdateQuery(key);
+		System.out.println(sql);
 		excuateUpdateSql(sql,db);
         System.out.println("Update data successfully" + this.getClass());
 	}

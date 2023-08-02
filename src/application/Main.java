@@ -6,9 +6,12 @@ import java.util.List;
 
 import DatabaseConnection.DatabaseAccessor;
 import application.model.Data;
-import application.model.Music;
 import application.model.Setting;
+
 import application.model.Task;
+import application.model.Music;
+import application.model.Leaf;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -34,25 +37,38 @@ public class Main extends Application {
 		
 	}
 	
+	
 	public static void main(String[] args) {
 		System.out.println("Haha");
 		
-//		Test database add and update
+		//Test database add and update
 		DatabaseAccessor db = new DatabaseAccessor("database.db");
+		Music music1 = new Music( "Silent Night", false, 10 ,"/resource/music/Jon Gegelman - Half Speed Silent Night.mp3");
+		music1.addToDB(db);
 		
-//		Music music1 = new Music("Silent Night", false, 10 ,"/resource/music/Jon Gegelman - Half Speed Silent Night.mp3");
-//		music1.addToDB(db);
-//		Music music2 = new Music("A Vivid Frost", false, 10 ,"/resource/music/Jon Gegelman - A Vivid Frost.mp3");
-//		music2.addToDB(db);
-//		Music music3 = new Music("The Frog Walk", false, 10 ,"/resource/music/Aves - The Frog Walk.mp3");
-//		music3.addToDB(db);
+		Music music2 = new Music( "A Vivid Frost", false, 10 ,"/resource/music/Jon Gegelman - A Vivid Frost.mp3");
+		music2.addToDB(db);
+		
+		Music music3 = new Music( "The Frog Walk", false, 10 ,"/resource/music/Aves - The Frog Walk.mp3");
+		music3.addToDB(db);
+		
+		Leaf leaf1 = new Leaf("123","14:28","Reading",20);
+		leaf1.addToDB(db);
+		
+		
+		
+//		Task testTask1 = new Task("Beating",true);
+//		testTask1.addToDB(db);
+//		String oldTaskName = testTask1.getTaskName();
+//		testTask1.setTaskName("Writing");
+//		testTask1.updateToDB(db,oldTaskName);
 		
 		
 		
 //		Setting setting = new Setting(25,5,false,true,0);
 //		setting.addToDB(db);
-		List<Music> musicList = Music.getBoughtMusic(db);
-		System.out.println(musicList);
+//		List<Music> musicList = Music.getBoughtMusic(db);
+//		System.out.println(musicList);
 		
 		
 //		launch application
