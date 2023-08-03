@@ -120,7 +120,7 @@ public class StoreController implements Initializable{
 	
 		leafLabel.setText("        Leaf Collected:  " + leafNumber);
 		leafLabel.setStyle(" -fx-font-size: 12; "
-				+"-fx-font-weight: bold"
+				+"-fx-font-weight: bold;"
 				+ " -fx-text-fill: #7A3732;"
 				+"-fx-background-color: #DAEED7;"
 				+"-fx-background-radius:  30 0 0 30;"
@@ -129,7 +129,7 @@ public class StoreController implements Initializable{
 		
 		shopTitle.setText("Froggie Shop");
 		shopTitle.setStyle(" -fx-font-size: 24; "
-				+"-fx-font-weight: bold"
+				+"-fx-font-weight: bold;"
 				+ " -fx-text-fill: #7A3732;"
 				+"-fx-font-family: '" + ubuntuFont.getName() + "'"
 				);
