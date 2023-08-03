@@ -87,6 +87,9 @@ public class SettingPageController {
     
     @FXML
     void sessionAddOne(ActionEvent event) {
+    	if (setting.getSessionLength() < 1) {
+    		setting.addToDB(db);
+		}
     	setting.sessionAddOne();
     	sessionLengthLabel.setText("" + setting.getSessionLength());
     	setting.updateToDB(db, "SETTING");

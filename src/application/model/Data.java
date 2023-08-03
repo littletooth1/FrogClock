@@ -52,6 +52,7 @@ public abstract class Data {
 		String sql = getUpdateQuery(key);
 		System.out.println(sql);
 		excuateUpdateSql(sql,db);
+		System.out.println("query executed" + sql);
         System.out.println("Update data successfully" + this.getClass());
 	}
 	
