@@ -48,18 +48,10 @@ public class BottomBarController implements Initializable {
     		
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/ui/" + "SettingPage" +".fxml"));
             root = loader.load();
-
             // 获取Controller实例并传递参数
             SettingPageController controller = loader.getController();
-            try {
-				controller.initialize(db);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-    		
-			
-		} catch (IOException e) {
+		    controller.initialize(db);
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -80,7 +72,23 @@ public class BottomBarController implements Initializable {
 
     @FXML
     void timerPage(MouseEvent event) {
-    	loadPage("TimerPage");
+    	
+    	Parent root = null;
+    	
+    	try {
+    		
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/ui/" + "TimerPage" +".fxml"));
+            root = loader.load();
+            // 获取Controller实例并传递参数
+            TimerPageController controller = loader.getController();
+		    controller.initialize(db);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    	mainFrame.setCenter(root);
+    	
 
     }
     
@@ -99,7 +107,21 @@ public class BottomBarController implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
+Parent root = null;
+    	
+    	try {
+    		
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/ui/" + "TimerPage" +".fxml"));
+            root = loader.load();
+            // 获取Controller实例并传递参数
+            TimerPageController controller = loader.getController();
+		    controller.initialize(db);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    	mainFrame.setCenter(root);
 		
 	}
 
