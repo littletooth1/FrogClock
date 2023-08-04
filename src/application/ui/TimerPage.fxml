@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -11,20 +11,50 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="529.0" prefWidth="343.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.TimerPageController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="547.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.TimerPageController">
    <top>
-      <AnchorPane prefHeight="229.0" prefWidth="350.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="220.0" prefWidth="350.0" BorderPane.alignment="CENTER">
          <children>
-            <Button layoutX="48.0" layoutY="37.0" mnemonicParsing="false" prefHeight="169.0" prefWidth="173.0" text="Timer" />
-            <ButtonBar layoutX="22.0" layoutY="201.0" prefHeight="40.0" prefWidth="200.0">
-              <buttons>
-                <Button mnemonicParsing="false" text="Start" />
-                  <Button mnemonicParsing="false" text="Stop" />
-              </buttons>
-            </ButtonBar>
-            <Text fx:id="onGoingTask" layoutX="110.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: red;" text="Text" />
+            <ImageView fitHeight="270.0" fitWidth="350.0" layoutX="37.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../resource/images/timer-background-clock.png" />
+               </image>
+            </ImageView>
+		     <Label fx:id="timeLabel" layoutX="133.0" layoutY="92.0" text="00:00">
+		        <font>
+		           <Font size="32.0" />
+		        </font>
+		     </Label>
+            <ImageView fitHeight="100.0" fitWidth="220.0" layoutX="65.0" layoutY="240.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../resource/images/timer-dropdown.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="startButton" layoutX="200.0" layoutY="240.0" mnemonicParsing="false" onAction="#timerStart" style="-fx-background-color: TRANSPARENT;">
+	         <graphic>
+      	            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+      	               <image>
+      	                  <Image url="@../../resource/images/timer-not_started.png" />
+      	               </image>
+      	            </ImageView>
+	         </graphic></Button>
+	         <Button layoutX="237.0" layoutY="240.0" mnemonicParsing="false" onAction="#timerStop" style="-fx-background-color: transparent;">
+	         <graphic>
+      	            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+      	               <image>
+      	                  <Image url="@../../resource/images/timer-stop.png" />
+      	               </image>
+      	            </ImageView>
+	         </graphic></Button>
+	         <Button fx:id="pauseButton" layoutX="200.0" layoutY="240.0" mnemonicParsing="false" onAction="#timerPause" style="-fx-background-color: TRANSPARENT;" visible="false">
+	         <graphic>
+	            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+	               <image>
+	                  <Image url="@../../resource/images/timer-pause.png" />
+	               </image>
+	            </ImageView>
+	         </graphic></Button>	         
          </children>
       </AnchorPane>
    </top>

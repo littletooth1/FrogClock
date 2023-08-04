@@ -6,13 +6,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import DatabaseConnection.DatabaseAccessor;
+import application.model.FrogTimer;
 import application.model.Task;
 import javafx.css.PseudoClass;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 
@@ -32,12 +35,22 @@ public class TimerPageController {
 
     @FXML
     private VBox taskPannel;
+    
+	@FXML
+	private Label timeLabel;
+	
+    @FXML
+    public Button startButton;
+    
+    @FXML
+    public Button pauseButton;
 
 	public TimerPageController() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	
+	FrogTimer timer;
+
 	public void initialize(DatabaseAccessor db) throws SQLException {
         Statement statement = db.getConnection().createStatement(); 
 		this.db = db;
@@ -45,7 +58,35 @@ public class TimerPageController {
 		for(Task task : tasks) {
 			taskPannel.getChildren().add(createTaskCard(task));
 		}
+	    timer = new FrogTimer();
+	    timer.updateTimeLabel(timeLabel, timer.timeRemaining);
+	    switchIcon();
 	}
+	
+	public void switchIcon() {
+	    if (timer.isRunning) {
+	        startButton.setVisible(false);
+	        pauseButton.setVisible(true);
+	    } else {
+	        startButton.setVisible(true);
+	        pauseButton.setVisible(false);
+	    }
+	}
+	
+	public void timerStart(ActionEvent event) throws SQLException {
+		timer.startCountdown(timeLabel, this);
+		switchIcon();
+	};
+	
+	public void timerPause(ActionEvent event) throws SQLException {
+        timer.pauseCountdown(timeLabel);
+        switchIcon();
+    };
+    
+	public void timerStop(ActionEvent event) throws SQLException {
+		timer.stopCountdown(timeLabel);
+		switchIcon();
+	};
 	
 	private BorderPane createTaskCard(Task task) {
 		BorderPane bp = new BorderPane();
