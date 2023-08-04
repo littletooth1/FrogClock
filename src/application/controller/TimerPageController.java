@@ -11,13 +11,16 @@ import application.model.Task;
 import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-
+import javafx.scene.control.CheckBox;
 
 
 public class TimerPageController {
@@ -90,9 +93,22 @@ public class TimerPageController {
 	
 	private BorderPane createTaskCard(Task task) {
 		BorderPane bp = new BorderPane();
+		CheckBox checkbox = new CheckBox();
 		Text taskLabel = new Text(task.getTaskName());
-		Button selectButton = new Button("select");
-		bp.setLeft(taskLabel);
+		
+		checkbox.setOnAction((e)->{
+			task.setIsActive(!checkbox.isSelected());
+			task.updateToDB(db, task.getTaskName());
+			if(checkbox.isSelected()) {
+				taskLabel.setStyle("-fx-strikethrough: true;");
+			} else {
+				taskLabel.setStyle("-fx-strikethrough: false;");
+			}
+		});
+		Button selectButton = new Button("Select");
+		selectButton.setStyle("-fx-background-color: transparent");
+		bp.setLeft(checkbox);
+		bp.setCenter(taskLabel);
 		bp.setRight(selectButton);
 		selectButton.setOnAction((e)->{
 			onGoingTask.setText(task.getTaskName());
@@ -101,11 +117,13 @@ public class TimerPageController {
 			}
 			selectedTaskCard = bp;
 			selectCard();	
-			
 		});
-		bp.setStyle("-fx-background-color: white");
-		bp.getStyleClass().add("taskCard");
-		
+		BorderPane.setAlignment(checkbox, Pos.CENTER_LEFT);
+		BorderPane.setAlignment(taskLabel, Pos.CENTER_LEFT);
+		BorderPane.setAlignment(selectButton, Pos.CENTER_RIGHT);
+		BorderPane.setMargin(checkbox, new Insets(0,25,0,15));
+		bp.setStyle("-fx-background-color: #F5F4FB; -fx-background-radius: 10;");
+		bp.setPadding(new Insets(2,8,2,8));
 		return bp;
 	}
 	
@@ -121,13 +139,16 @@ public class TimerPageController {
 	}
 	
 	private void selectCard() {
-		selectedTaskCard.setStyle("-fx-background-color: green");
-		selectedTaskCard.getLeft().setStyle("-fx-fill: white");
+		selectedTaskCard.setStyle("-fx-background-color: #4A8229; -fx-background-radius: 10;");
+		selectedTaskCard.getCenter().setStyle("-fx-fill: white");
+		selectedTaskCard.getRight().setStyle("-fx-text-fill: white; -fx-background-color: transparent;");
+
 	}
 	
 	private void unselectCard() {
-		selectedTaskCard.setStyle("-fx-background-color: white");
-		selectedTaskCard.getLeft().setStyle("-fx-fill: black");
+		selectedTaskCard.setStyle("-fx-background-color: #F5F4FB");
+		selectedTaskCard.getCenter().setStyle("-fx-fill: black");
+		selectedTaskCard.getRight().setStyle("-fx-fill: black; -fx-background-color: transparent;");
 	}
 
 }
