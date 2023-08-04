@@ -61,6 +61,7 @@ public class Setting extends Data {
 		return setting;
 	}
 	
+	
 	public void sessionAddOne() {
 		sessionLength++;
 	}

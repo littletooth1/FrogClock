@@ -103,7 +103,6 @@ public class StoreController implements Initializable{
 			leavesEarned = leaves.getInt("totalEarned");
 		}		
 		
-		
        
 		ResultSet leavesSpent = Data.excuateQuerySql("SELECT SUM( CASE WHEN available = 'true' Then price ELSE 0 END) AS [totalCost] FROM MUSIC", db, statement);
 		int result = 0;
@@ -133,7 +132,6 @@ public class StoreController implements Initializable{
 				+ " -fx-text-fill: #7A3732;"
 				+"-fx-font-family: '" + ubuntuFont.getName() + "'"
 				);
-		
 	}
 	
 	
@@ -164,18 +162,10 @@ public class StoreController implements Initializable{
 	private void buyMusic1(ActionEvent event) throws IOException, SQLException  {
 		if (leafNumber >= 10) {
 			//change music available status
-			
+				
 	        Statement statement = db.getConnection().createStatement();
-	        
-			ResultSet resultSet = Data.excuateQuerySql("SELECT * FROM MUSIC WHERE musicName = 'Silent Night'", db, statement);
-			
-			while(resultSet.next()) {	
-				Music music1 = new Music(resultSet);
-				System.out.print(music1);
-				music1.updateToDB(db, music1.getMusicName());
-			}
+	        Music.updateAvailability(db, statement,1);
 			statement.close();
-
 			
 			//change button
 			buyButton1.setText("Sold");
@@ -199,21 +189,11 @@ public class StoreController implements Initializable{
 		if (leafNumber >= 10) {
 			//change music available status
 	        Statement statement = db.getConnection().createStatement(); 
-	        
-			ResultSet resultSet = Data.excuateQuerySql("SELECT * FROM MUSIC WHERE musicName = 'A Vivid Frost'", db, statement);
-			
-			while(resultSet.next()) {	
-				Music music1 = new Music(resultSet);
-				System.out.print(music1);
-				music1.updateToDB(db, music1.getMusicName());
-			}
-			statement.close();
-
-			
+	        Music.updateAvailability(db, statement,2);
+			statement.close();			
 			//change button
 			buyButton2.setText("Sold");
-			buyButton2.setStyle("-fx-background-color: #8D8D8D; -fx-background-radius: 30 30 30 30; ");
-				
+			buyButton2.setStyle("-fx-background-color: #8D8D8D; -fx-background-radius: 30 30 30 30; ");				
 			//update leafNumber
 			leafNumber = getLeafNumber(db);
 			leafLabel.setText("        Leaf Collected:  " + leafNumber);
@@ -229,14 +209,7 @@ public class StoreController implements Initializable{
 		if (leafNumber >= 10) {
 			//change music available status
 	        Statement statement = db.getConnection().createStatement(); 
-	        
-			ResultSet resultSet = Data.excuateQuerySql("SELECT * FROM MUSIC WHERE musicName = 'The Frog Walk'", db, statement);
-			
-			while(resultSet.next()) {	
-				Music music1 = new Music(resultSet);
-				System.out.print(music1);
-				music1.updateToDB(db, music1.getMusicName());
-			}
+	        Music.updateAvailability(db, statement,3);
 			statement.close();
 
 			//change button

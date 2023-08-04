@@ -2,9 +2,11 @@ package application;
 	
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 import DatabaseConnection.DatabaseAccessor;
+import application.controller.MusicRelated;
 import application.model.Data;
 import application.model.Setting;
 
@@ -38,19 +40,27 @@ public class Main extends Application {
 	}
 	
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SQLException {
 		System.out.println("Haha");
 		
 		//Note: Run the following code to ensure records exist in the database before testing Music Facade
-//		DatabaseAccessor db = new DatabaseAccessor("database.db");
-//		Music music1 = new Music( "Silent Night", false, 10 ,"/resource/music/Jon Gegelman - Half Speed Silent Night.mp3");
+		DatabaseAccessor db = new DatabaseAccessor("database.db");
+        Statement statement = db.getConnection().createStatement();
+
+
+		
+		
+		//Add music in this order
+//		Music music1 = new Music( "The Frog Walk", true, 0 ,"resource/music/Aves - The Frog Walk.mp3");
 //		music1.addToDB(db);
 //		
-//		Music music2 = new Music( "A Vivid Frost", false, 10 ,"/resource/music/Jon Gegelman - A Vivid Frost.mp3");
+//		Music music2 = new Music( "A Vivid Frost", false, 10 ,"resource/music/Jon Gegelman - A Vivid Frost.mp3");
 //		music2.addToDB(db);
-//		
-//		Music music3 = new Music( "The Frog Walk", false, 10 ,"/resource/music/Aves - The Frog Walk.mp3");
+//        
+//		Music music3 = new Music( "Silent Night", false, 10 ,"resource/music/Jon Gegelman - Half Speed Silent Night.mp3");
 //		music3.addToDB(db);
+        
+//		
 //		
 //		Leaf leaf1 = new Leaf("123","14:28","Reading",20);
 //		leaf1.addToDB(db);
@@ -65,10 +75,14 @@ public class Main extends Application {
 		
 		
 		
-//		Setting setting = new Setting(25,5,false,true,0);
+//		Setting setting = new Setting(25,5,false,true,1);
 //		setting.addToDB(db);
-//		List<Music> musicList = Music.getBoughtMusic(db);
+//		List<Music> musicList = Music.getBoughtMusic(db,statement);
 //		System.out.println(musicList);
+        
+        MusicRelated musicR = new MusicRelated();
+//        musicR.playMusic("resource/music/timerSound.mp3");
+        musicR.playBackGround(db, statement);
 		
 		
 //		launch application

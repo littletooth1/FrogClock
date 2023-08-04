@@ -19,6 +19,7 @@ public class Music extends Data{
 	private final static String tableName = "MUSIC";
     private static final String INSERT_MUSIC_QUERY = "INSERT INTO %s (id, musicName,available, price, url) " + "VALUES (NULL,'%s', '%s','%s','%s');";
     private static final String UPDATE_MUSIC_QUERY = "UPDATE %s SET available = 'true' where musicName = '%s'";
+    private static final String SELECT_MUSIC_QUERY = "SELECT * FROM MUSIC where id = %d";
 
 
 	public Music(String name, boolean available, int price, String url) {
@@ -50,6 +51,10 @@ public class Music extends Data{
 	
 	public int getMusicId() {
 		return id;
+	}
+	
+	public String getMusicURL() {
+		return url;
 	}
 	
 
@@ -91,4 +96,34 @@ public class Music extends Data{
         }
         return null;
 	}
+
+
+	//Get music by id
+	public static Music gettMusic(DatabaseAccessor db, Statement statement, int id) {
+		String s =  String.format(SELECT_MUSIC_QUERY, id);
+		System.out.println(s);
+		ResultSet resultSet = Data.excuateQuerySql(s, db, statement);
+		Music music = null;
+		try {
+			music = new Music(resultSet);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return music;
+	}
+
+	
+	//update availability
+	public static void updateAvailability(DatabaseAccessor db, Statement statement, int id) throws SQLException {
+		String s =  String.format(SELECT_MUSIC_QUERY, id);
+		ResultSet resultSet = Data.excuateQuerySql(s, db, statement);
+		while(resultSet.next()) {	
+			Music music1 = new Music(resultSet);
+			System.out.print(music1);
+			music1.updateToDB(db, music1.getMusicName());
+		}
+		
+	}
+	
 }

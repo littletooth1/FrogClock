@@ -135,7 +135,7 @@ public class SettingPageController {
 		endOnCheckbox.setSelected(setting.isEndOn());
 		backgroundOnCheckbox.setSelected(setting.isBackgroundOn());
 		int bgmId = setting.getBgmID();
-		musicNameLabel.setText(musics.get(bgmId).getMusicName());
+		musicNameLabel.setText(musics.get(bgmId - 1).getMusicName());
 	}
 	
 	
