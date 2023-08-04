@@ -65,7 +65,7 @@ public class FrogTimer extends Data{
 	            if (isBreak) {
 	                handleBreak(now, timeLabel, controller);
 	            } else {
-	                handleSession(now, timeLabel);
+	                handleSession(now, timeLabel,controller.getSelectedTaskName());
 	            }
 
 		        lastUpdate = now;
@@ -75,7 +75,7 @@ public class FrogTimer extends Data{
 	}
 	
 
-	public void handleSession(long now, Label timeLabel) {	
+	public void handleSession(long now, Label timeLabel, String taskName) {	
 
 
         if (timeRemaining <= lastSession - 5 * 1_000_000_000L) {
@@ -87,7 +87,7 @@ public class FrogTimer extends Data{
             String taskFinishTime = LocalDateTime.now().format(timeFormatter);
             String taskFinishDate = LocalDateTime.now().format(dateFormatter);
 
-    		Leaf leaf = new Leaf(taskFinishTime, taskFinishDate, "Sample Task", 5);
+    		Leaf leaf = new Leaf(taskFinishTime, taskFinishDate, taskName, 5);
 
         	try {
         		DatabaseAccessor db = new DatabaseAccessor("database.db");

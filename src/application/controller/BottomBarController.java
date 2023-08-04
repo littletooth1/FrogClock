@@ -107,7 +107,7 @@ public class BottomBarController implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-Parent root = null;
+		Parent root = null;
     	
     	try {
     		

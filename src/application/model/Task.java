@@ -14,7 +14,7 @@ public class Task extends Data {
 	private boolean isActive;
 	private final static String tableName = "TASK";
     private static final String INSERT_TASK_QUERY = "INSERT INTO %s (taskName,isActive) " + "VALUES ('%s', '%s');";
-    private static final String UPDATE_TASK_QUERY = "UPDATE %s SET taskName = '%s', isActive = %s where taskName = '%s'";
+    private static final String UPDATE_TASK_QUERY = "UPDATE %s SET taskName = '%s', isActive = '%s' where taskName = '%s'";
 
 
 	public Task(String name, boolean isActive) {

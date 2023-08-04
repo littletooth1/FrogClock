@@ -36,9 +36,9 @@
             <Image url="@../../resource/images/shop-leaf.png" />
          </image>
       </ImageView>
-      <ScrollPane layoutX="81.0" layoutY="132.0" prefHeight="377.0" prefWidth="310.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+      <ScrollPane hbarPolicy="NEVER" layoutX="20.0" layoutY="135.0" prefHeight="377.0" prefWidth="310.0" style="-fx-background-color: white;" vbarPolicy="NEVER" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="459.0" prefWidth="318.0" style="-fx-background-color: white;">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="467.0" prefWidth="318.0" style="-fx-border-color: transparent; -fx-background-color: white;">
                <children>
                   <ImageView fitHeight="54.0" fitWidth="120.0" layoutX="-1.0" layoutY="353.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -68,7 +68,8 @@
                   <Button fx:id="buyButton1" layoutX="195.0" layoutY="130.0" mnemonicParsing="false" onAction="#buyMusic1" prefHeight="13.0" prefWidth="84.0" style="-fx-background-color: #4A8229; -fx-font-weight: bold; -fx-background-radius: 30 30 30 30;" text="Buy" textFill="WHITE">
                      <font>
                         <Font name="Apple LiGothic Medium" size="16.0" />
-                     </font></Button>
+                     </font>
+                  </Button>
                   <ImageView fitHeight="26.0" fitWidth="22.0" layoutX="129.0" layoutY="132.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../resource/images/shop-leaf.png" />
@@ -87,19 +88,23 @@
                   <Button fx:id="buyButton2" layoutX="195.0" layoutY="268.0" mnemonicParsing="false" onAction="#buyMusic2" prefHeight="26.0" prefWidth="84.0" style="-fx-background-color: #4A8229; -fx-background-radius: 30 30 30 30;" text="Buy" textFill="WHITE">
                      <font>
                         <Font name="Apple LiGothic Medium" size="16.0" />
-                     </font></Button>
+                     </font>
+                  </Button>
                   <Button fx:id="buyButton3" layoutX="195.0" layoutY="405.0" mnemonicParsing="false" onAction="#buyMusic3" prefHeight="26.0" prefWidth="84.0" style="-fx-background-color: #4A8229; -fx-background-radius: 30 30 30 30;" text="Buy" textFill="WHITE">
                      <font>
                         <Font name="Apple LiGothic Medium" size="16.0" />
-                     </font></Button>
+                     </font>
+                  </Button>
                   <Text layoutX="127.0" layoutY="76.0" smooth="false" stroke="BLACK" strokeLineJoin="ROUND" strokeType="INSIDE" strokeWidth="0.0" style="-fx-font-weight: bold; -fx-fill: #8D8D8D;" text="Silent Night">
                      <font>
                         <Font name="Apple LiGothic Medium" size="18.0" />
-                     </font></Text>
+                     </font>
+                  </Text>
                   <Text fill="#8d8d8d" layoutX="129.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BGM WHITE NOISE">
                      <font>
                         <Font name="Apple LiGothic Medium" size="13.0" />
-                     </font></Text>
+                     </font>
+                  </Text>
                   <Text layoutX="158.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="X 10" />
                   <Text layoutX="158.0" layoutY="287.0" strokeType="OUTSIDE" strokeWidth="0.0" text="X 10" />
                   <Text layoutX="158.0" layoutY="423.0" strokeType="OUTSIDE" strokeWidth="0.0" text="X 10" />
