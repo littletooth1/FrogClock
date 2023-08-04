@@ -2,6 +2,12 @@ package application.model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import DatabaseConnection.DatabaseAccessor;
+
 
 public class Task extends Data {
 	private String taskName;
@@ -46,7 +52,20 @@ public class Task extends Data {
 		return s;
 	}
 
+	public static List<Task> getActiveTasks(DatabaseAccessor db, Statement statement) {
+		String sql = "SELECT * From TASK WHERE isActive = 'true'";
+		List<Task> activeTasks = new ArrayList<>(); 
 
-	
+		try {
+            ResultSet resultSet = Data.excuateQuerySql(sql, db, statement);
+            while (resultSet.next()) {
+            	activeTasks.add(new Task(resultSet));
+            }
+            return activeTasks;
+        } catch (SQLException e) {
+            System.err.println(e.getClass().getName() + ": " + e.getErrorCode());
+        }
+        return null;
+	}
 
 }
