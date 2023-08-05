@@ -80,9 +80,13 @@ public class Main extends Application {
 //		List<Music> musicList = Music.getBoughtMusic(db,statement);
 //		System.out.println(musicList);
         
-//        MusicRelated musicR = new MusicRelated();
-//        musicR.playMusic("resource/music/timerSound.mp3");
-//        musicR.playBackGround(db, statement);
+//      MusicRelated musicR = new MusicRelated();
+//      boolean test = false;
+//      musicR.playBackGround(db, statement,test);
+//      test = true;
+
+      
+
 		
 		
 //		launch application

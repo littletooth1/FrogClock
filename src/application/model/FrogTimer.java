@@ -8,11 +8,13 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 import DatabaseConnection.DatabaseAccessor;
+import application.controller.MusicRelated;
 import application.controller.TimerPageController;
 import javafx.animation.AnimationTimer;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.control.Alert;
 
 public class FrogTimer extends Data{
@@ -51,7 +53,7 @@ public class FrogTimer extends Data{
 		// TODO Auto-generated constructor stub
 	}
 
-	public void startCountdown(Label timeLabel, TimerPageController controller) throws SQLException{
+	public void startCountdown(Label timeLabel, TimerPageController controller, MediaPlayer mediaPlayer) throws SQLException{
 		isRunning = true;
 		lastUpdate = 0;
 		currentTimer = new AnimationTimer() {
@@ -61,26 +63,40 @@ public class FrogTimer extends Data{
 		            long elapsed = now - lastUpdate;
 		            timeRemaining -= elapsed;
 		        }
-
+		        
+				try {
+					MusicRelated.playBackGround(mediaPlayer,isRunning, isBreak);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		        
 	            if (isBreak) {
 	                handleBreak(now, timeLabel, controller);
 	            } else {
-	                handleSession(now, timeLabel,controller.getSelectedTaskName());
+	                handleSession(now, timeLabel,controller.getSelectedTaskName(),mediaPlayer);
 	            }
 
 		        lastUpdate = now;
 		    }
 		};
 		currentTimer.start();
+
 	}
 	
 
-	public void handleSession(long now, Label timeLabel, String taskName) {	
+	public void handleSession(long now, Label timeLabel, String taskName, MediaPlayer mediaPlayer) {	
 
 
         if (timeRemaining <= lastSession - 5 * 1_000_000_000L) {
     		currentTimer.stop();
+    		
+    		//play end music
+    		MusicRelated music = new MusicRelated();
+    	    music.playMusic();
+    	    mediaPlayer.stop();
 
+    	    
             DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
             DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
@@ -108,6 +124,7 @@ public class FrogTimer extends Data{
                 currentTimer.start();
             });
             alert.show();
+            
 
         } else {
     		updateTimeLabel(timeLabel, timeRemaining);
@@ -117,7 +134,7 @@ public class FrogTimer extends Data{
 	public void handleBreak(long now, Label timeLabel, TimerPageController controller) {
         if (timeRemaining <= lastBreak - 5 * 1_000_000_000L) {
         	currentTimer.stop();
-    		isRunning = false;
+    		isRunning = false;    		
 
         	ButtonType alerButtonForBreak = new ButtonType("Ok");
             Alert alert = new Alert(AlertType.NONE, "Time's up, let's get back to work!", alerButtonForBreak);
@@ -132,11 +149,13 @@ public class FrogTimer extends Data{
         } 
 	}
 
-	public void pauseCountdown(Label timeLabel){
+	public void pauseCountdown(Label timeLabel, MediaPlayer mediaPlayer) throws SQLException{
 		currentTimer.stop();
 		lastUpdate = 0;
 		isRunning = false;
 		updateTimeLabel(timeLabel, timeRemaining);
+		MusicRelated.playBackGround(mediaPlayer,isRunning, isBreak);
+
 	}
 
 	public void stopCountdown(Label timeLabel){

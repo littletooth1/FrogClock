@@ -8,6 +8,8 @@ import java.util.List;
 import DatabaseConnection.DatabaseAccessor;
 import application.model.FrogTimer;
 import application.model.Task;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,6 +17,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -30,6 +33,7 @@ public class TimerPageController {
 	FrogTimer timer;
 	String selectedTaskName;
 	Font font;
+	MediaPlayer mediaPlayer;
 
     @FXML
     private Button addNewTaskButton;
@@ -67,6 +71,17 @@ public class TimerPageController {
 		
 	    timer = new FrogTimer();
 	    timer.updateTimeLabel(timeLabel, timer.timeRemaining);
+	    BooleanProperty isRunningProperty = new SimpleBooleanProperty(timer.isRunning);
+	    MusicRelated music = new MusicRelated();
+	    mediaPlayer = music.getMusicPath(db, statement);
+//	    isRunningProperty.addListener((observable, oldValue, newValue) -> {
+//	    	try {
+//				music.playBackGround(mediaPlayer,timer.isRunning);
+//			} catch (SQLException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//	    });
 	    switchIcon();
 	}
 	
@@ -78,15 +93,16 @@ public class TimerPageController {
 	        startButton.setVisible(true);
 	        pauseButton.setVisible(false);
 	    }
+	    
 	}
 	
 	public void timerStart(ActionEvent event) throws SQLException {
-		timer.startCountdown(timeLabel, this);
+		timer.startCountdown(timeLabel, this, mediaPlayer);
 		switchIcon();
 	};
 
 	public void timerPause(ActionEvent event) throws SQLException {
-        timer.pauseCountdown(timeLabel);
+        timer.pauseCountdown(timeLabel, mediaPlayer);
         switchIcon();
     };
 
