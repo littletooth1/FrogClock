@@ -1,11 +1,17 @@
 package application.controller;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.ArrayList;
+
+import DatabaseConnection.DatabaseAccessor;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.text.Font;
@@ -19,7 +25,7 @@ import javafx.scene.layout.Region;
 
 public class CalendarController {
 	ZonedDateTime today;
-	HashMap<LocalDate, List<String>> taskMap;
+	HashMap<LocalDate, List<String>> taskMap = new HashMap<>();
 	Font architectFont;
 	Font ubuntuFont;
 	
@@ -53,31 +59,45 @@ public class CalendarController {
         createSticker();
 	}
 	
+	private HashMap<LocalDate, HashMap<String, Integer>> taskCountMap = new HashMap<>();
+	
 	public void initialize() {
 		this.architectFont = Font.loadFont(getClass().getResourceAsStream("/resource/fonts/ArchitectsDaughter-Regular.ttf"), 16);
 		this.ubuntuFont = Font.loadFont(getClass().getResourceAsStream("/resource/fonts/Ubuntu-Regular.ttf"), 16);
 		today = ZonedDateTime.now();
-	    taskMap = loadTasks();
+	    loadTasks();
+	    System.out.println("taskMap: " + taskMap);
+	    System.out.println("taskCountMap: " + taskCountMap);
 		createCalendar();
 	    createSticker();
 	}
-	
-	private HashMap<LocalDate, List<String>> loadTasks() {
-	    HashMap taskMap = new HashMap<>();
-	    
-	    LocalDate today = LocalDate.now();
-	    taskMap.put(today, Arrays.asList("Task 1", "Task 2", "Task 1", "Task 2",
-	    		"Task 1", "Task 2", "Task 1", "Task 2"));
-	    
-	    LocalDate tomorrow = today.plusDays(1);
-	    taskMap.put(tomorrow, Arrays.asList("Task 3"));
+		
+	private void loadTasks() {
+		
+		
+    	try {
+    		DatabaseAccessor db = new DatabaseAccessor("database.db");
+			Statement statement = db.getConnection().createStatement();
+	        ResultSet resultSet = statement.executeQuery("SELECT taskName, date FROM LEAF");
+			while (resultSet.next()) {
+				String taskNameFromDb = resultSet.getString("taskName");
+	            LocalDate dateFromDb = LocalDate.parse(resultSet.getString("date"));
+	            
+	            taskMap.putIfAbsent(dateFromDb, new ArrayList<>());
+	            taskMap.get(dateFromDb).add(taskNameFromDb);
+	            
 
-	    LocalDate twoDaysLater = today.plusDays(2);
-	    taskMap.put(twoDaysLater, Arrays.asList("Task 4", "Task 5"));
+	            taskCountMap.putIfAbsent(dateFromDb, new HashMap<>());
+	            taskCountMap.get(dateFromDb).put(taskNameFromDb, taskCountMap.get(dateFromDb).getOrDefault(taskNameFromDb, 0) + 1);
+			}
+	        resultSet.close();
+	        statement.close();
+			db.getConnection().close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	    
-	    LocalDate test = today.plusDays(15);
-	    taskMap.put(test, Arrays.asList("Task 4", "Task 5"));
-	    return taskMap;
 	}
 	
 	private void createCalendar() {
@@ -133,23 +153,28 @@ public class CalendarController {
 	
 	private void createSticker() {
         List<String> tasks = taskMap.get(today.toLocalDate());
-        
-        if(tasks != null) {
-        	StringBuilder taskList = new StringBuilder();
-        	int displayLimit = 5;
-        	
-        	for (int i = 0; i < Math.min(tasks.size(), displayLimit); i++) {
-                taskList.append("- ").append(tasks.get(i)).append("\n");
-            }
-        	
-            if (tasks.size() > displayLimit) {
-                taskList.append("* and ").append(tasks.size() - displayLimit).append(" more tasks *");
-            }
-        	
-            stickerText.setText(taskList.toString());
+        HashMap<String, Integer> taskCounts = taskCountMap.get(today.toLocalDate());
+
+    	StringBuilder taskList = new StringBuilder();
+    	int displayLimit = 5;
+
+        if(taskCounts != null) {
+            int tasksDisplayed = 0;
+
+            for (String task : taskCounts.keySet()) {
+	            if (tasksDisplayed >= displayLimit) {
+	                taskList.append("* and ").append(taskCounts.size() - displayLimit).append(" more tasks *");
+	                break;
+	            }
+            	
+	            int count = taskCounts.getOrDefault(task, 0);
+                taskList.append("- ").append(task).append(" x ").append(count).append("\n");
+                tasksDisplayed++;
+            } 
         } else {
-            stickerText.setText("- None");
+            taskList.append("- None");
         }
+        stickerText.setText(taskList.toString());
         stickerText.setStyle("-fx-font-family: 'Architects Daughter Regular'; -fx-font-size: 12;");
 
 	}
