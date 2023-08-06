@@ -11,7 +11,7 @@
    <bottom>
       <HBox alignment="CENTER" prefHeight="48.0" prefWidth="350.0" style="-fx-background-color: #4A8229;" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="timerButton" managed="false" mnemonicParsing="false" onMouseClicked="#timerPage" prefHeight="48.0" prefWidth="87.5" style="-fx-background-color: transparent;" textFill="WHITE">
+            <Button fx:id="timerButton" managed="true" visible="true" mnemonicParsing="false" onMouseClicked="#timerPage" prefHeight="48.0" prefWidth="87.5" style="-fx-background-color: transparent;" textFill="WHITE">
                <graphic>
                   <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -19,7 +19,7 @@
                      </image>
                   </ImageView>
                </graphic></Button>
-            <Button fx:id="statsButton" managed="false" mnemonicParsing="false" onMouseClicked="#statsPage" prefHeight="48.0" prefWidth="87.5" style="-fx-background-color: transparent;" textFill="WHITE">
+            <Button fx:id="statsButton" managed="true" visible="true" mnemonicParsing="false" onMouseClicked="#statsPage" prefHeight="48.0" prefWidth="87.5" style="-fx-background-color: transparent;" textFill="WHITE">
                <graphic>
                   <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -27,7 +27,7 @@
                      </image>
                   </ImageView>
                </graphic></Button>
-            <Button fx:id="shopButton" managed="false" mnemonicParsing="false" onMouseClicked="#shopPage" prefHeight="48.0" prefWidth="87.5" style="-fx-background-color: transparent;" textFill="WHITE">
+            <Button fx:id="shopButton" managed="true" visible="true" mnemonicParsing="false" onMouseClicked="#shopPage" prefHeight="48.0" prefWidth="87.5" style="-fx-background-color: transparent;" textFill="WHITE">
                <graphic>
                   <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -35,7 +35,7 @@
                      </image>
                   </ImageView>
                </graphic></Button>
-            <Button fx:id="settingButton" managed="false" mnemonicParsing="false" onMouseClicked="#settingPage" prefHeight="48.0" prefWidth="87.5" style="-fx-background-color: transparent;" textFill="WHITE">
+            <Button fx:id="settingButton" managed="true" visible="true" mnemonicParsing="false" onMouseClicked="#settingPage" prefHeight="48.0" prefWidth="87.5" style="-fx-background-color: transparent;" textFill="WHITE">
                <graphic>
                   <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -43,7 +43,7 @@
                      </image>
                   </ImageView>
                </graphic></Button>
-            <ImageView fx:id="focusImage" fitHeight="48.0" fitWidth="350.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="focusImage" managed="false" visible="false" fitHeight="48.0" fitWidth="350.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../resource/images/timer-nav-blocker.png" />
                </image></ImageView>
