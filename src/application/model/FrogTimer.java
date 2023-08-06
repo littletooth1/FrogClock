@@ -87,7 +87,10 @@ public class FrogTimer extends Data{
 
 	public void handleSession(long now, Label timeLabel, String taskName, MediaPlayer mediaPlayer) {	
 
-
+	    if (taskName == null) {
+	        taskName = "Free Frog Clock"; // default clock name if no task is selected
+	    }
+	    
         if (timeRemaining <= lastSession - 5 * 1_000_000_000L) {
     		currentTimer.stop();
     		

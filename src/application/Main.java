@@ -58,14 +58,14 @@ public class Main extends Application {
 //		music2.addToDB(db);
 //        
 //		Music music3 = new Music( "Silent Night", false, 10 ,"resource/music/Jon Gegelman - Half Speed Silent Night.mp3");
-//		music3.addToDB(db);
+//		music3.addToDB(db);        
+//		
+//		Leaf leaf1 = new Leaf("00:10:00", "2023-08-05", "Sample Task", 20);
+//		leaf1.addToDB(db);		
+//		Setting setting = new Setting(25,5,false,true,1);
+//		setting.addToDB(db);
         
-//		
-//		
-//		Leaf leaf1 = new Leaf("123","14:28","Reading",20);
-//		leaf1.addToDB(db);
-		
-		
+        
 		
 //		Task testTask1 = new Task("Beating",true);
 //		testTask1.addToDB(db);
@@ -75,8 +75,7 @@ public class Main extends Application {
 		
 		
 		
-//		Setting setting = new Setting(25,5,false,true,1);
-//		setting.addToDB(db);
+
 //		List<Music> musicList = Music.getBoughtMusic(db,statement);
 //		System.out.println(musicList);
         
