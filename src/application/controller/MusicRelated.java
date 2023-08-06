@@ -56,7 +56,13 @@ public class MusicRelated {
 	    	  if (isRunning == true && isBreak == false) {
 	    	    mediaPlayer.play();
 	    	    
-	    	  } else {
+	    	  } 
+	    	  else if(isRunning == false && isBreak == false){
+	    		mediaPlayer.stop();
+	    		  
+	    	  }
+	    	  
+	    	  else {
 	    	    // If the isRunning is false, pause the media
 	    	    mediaPlayer.pause();
 	    	  }

@@ -36,7 +36,7 @@
             <Image url="@../../resource/images/shop-leaf.png" />
          </image>
       </ImageView>
-      <ScrollPane hbarPolicy="NEVER" layoutX="20.0" layoutY="135.0" prefHeight="377.0" prefWidth="310.0" style="-fx-background-color: white;" vbarPolicy="NEVER" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+      <ScrollPane hbarPolicy="NEVER" layoutX="20.0" layoutY="135.0" prefHeight="360.0" prefWidth="310.0" style="-fx-background-color: white;" vbarPolicy="NEVER" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="467.0" prefWidth="318.0" style="-fx-border-color: transparent; -fx-background-color: white;">
                <children>
@@ -50,7 +50,7 @@
                         <Image url="@../../resource/images/shop-Rectangle%2052.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="86.0" fitWidth="84.0" layoutX="15.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="75.0" fitWidth="74.0" layoutX="21.0" layoutY="316.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../resource/images/shop-night.jpg" />
                      </image>
@@ -95,12 +95,7 @@
                         <Font name="Apple LiGothic Medium" size="16.0" />
                      </font>
                   </Button>
-                  <Text layoutX="127.0" layoutY="76.0" smooth="false" stroke="BLACK" strokeLineJoin="ROUND" strokeType="INSIDE" strokeWidth="0.0" style="-fx-font-weight: bold; -fx-fill: #8D8D8D;" text="Silent Night">
-                     <font>
-                        <Font name="Apple LiGothic Medium" size="18.0" />
-                     </font>
-                  </Text>
-                  <Text fill="#8d8d8d" layoutX="129.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BGM WHITE NOISE">
+                  <Text fill="#8d8d8d" layoutX="129.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FUNK MUSIC">
                      <font>
                         <Font name="Apple LiGothic Medium" size="13.0" />
                      </font>
@@ -108,7 +103,7 @@
                   <Text layoutX="158.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="X 10" />
                   <Text layoutX="158.0" layoutY="287.0" strokeType="OUTSIDE" strokeWidth="0.0" text="X 10" />
                   <Text layoutX="158.0" layoutY="423.0" strokeType="OUTSIDE" strokeWidth="0.0" text="X 10" />
-                  <Text layoutX="127.0" layoutY="226.0" smooth="false" stroke="BLACK" strokeLineJoin="ROUND" strokeType="INSIDE" strokeWidth="0.0" style="-fx-font-weight: bold; -fx-fill: #8D8D8D;" text="A Vivid Frost">
+                  <Text fill="#8d8d8d" layoutX="127.0" layoutY="226.0" smooth="false" stroke="BLACK" strokeLineJoin="ROUND" strokeType="INSIDE" strokeWidth="0.0" text="A Vivid Frost">
                      <font>
                         <Font name="Apple LiGothic Medium" size="18.0" />
                      </font>
@@ -118,21 +113,26 @@
                         <Font name="Apple LiGothic Medium" size="13.0" />
                      </font>
                   </Text>
-                  <Text layoutX="128.0" layoutY="359.0" smooth="false" stroke="BLACK" strokeLineJoin="ROUND" strokeType="INSIDE" strokeWidth="0.0" style="-fx-font-weight: bold; -fx-fill: #8D8D8D;" text="Frog Walk">
+                  <Text fill="#8d8d8d" layoutX="128.0" layoutY="359.0" smooth="false" stroke="BLACK" strokeLineJoin="ROUND" strokeType="INSIDE" strokeWidth="0.0" text="Silent Night">
                      <font>
                         <Font name="Apple LiGothic Medium" size="18.0" />
                      </font>
                   </Text>
-                  <Text fill="#8d8d8d" layoutX="129.0" layoutY="384.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FUNK MUSIC">
+                  <Text fill="#8d8d8d" layoutX="129.0" layoutY="384.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BGM WHITE NOISE">
                      <font>
                         <Font name="Apple LiGothic Medium" size="13.0" />
                      </font>
                   </Text>
-                  <ImageView fitHeight="75.0" fitWidth="77.0" layoutX="16.0" layoutY="318.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="86.0" fitWidth="81.0" layoutX="14.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../resource/images/shop-frog.jpg" />
                      </image>
                   </ImageView>
+                  <Text fill="#8d8d8d" layoutX="128.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Frog Walk">
+                     <font>
+                        <Font name="Apple LiGothic Medium" size="18.0" />
+                     </font>
+                  </Text>
                </children>
             </AnchorPane>
         </content>

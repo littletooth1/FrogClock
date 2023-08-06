@@ -141,7 +141,6 @@ public class StoreController implements Initializable{
 		List<Music> boughtMusic = Music.getBoughtMusic(db, statement);
 		statement.close();
 		boughtMusic.toString();
-		System.out.print("Here");
 		for (int i = 0; i < boughtMusic.size(); i++) {
 			Music current = boughtMusic.get(i);
 			int index = current.getMusicId();
