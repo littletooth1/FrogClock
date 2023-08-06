@@ -161,7 +161,6 @@ public class FrogTimer extends Data{
 	public void stopCountdown(Label timeLabel){
 		currentTimer.stop();
 		timeRemaining = lastSession;
-		System.out.print(lastSession / 60 + "chouzhouzhou");
 
 		isBreak = false;
 		isRunning = false;
