@@ -13,6 +13,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -35,6 +37,9 @@ public class BottomBarController implements Initializable {
 
     @FXML
     private Button timerButton;
+    
+    @FXML
+    private ImageView focusImage;
 
     @FXML
     private AnchorPane windowView;
@@ -81,6 +86,7 @@ public class BottomBarController implements Initializable {
             root = loader.load();
             // 获取Controller实例并传递参数
             TimerPageController controller = loader.getController();
+            controller.setBottomBarController(this);
 		    controller.initialize(db);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -115,6 +121,7 @@ public class BottomBarController implements Initializable {
             root = loader.load();
             // 获取Controller实例并传递参数
             TimerPageController controller = loader.getController();
+            controller.setBottomBarController(this);
 		    controller.initialize(db);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -124,5 +131,25 @@ public class BottomBarController implements Initializable {
     	mainFrame.setCenter(root);
 		
 	}
+	
+	public void toggleStatsButtonVisibility(boolean showStats) {
+	    statsButton.setManaged(showStats);
+	    statsButton.setVisible(showStats);
+	    settingButton.setManaged(showStats);
+	    settingButton.setVisible(showStats);
+	    shopButton.setManaged(showStats);
+	    shopButton.setVisible(showStats);
+	    timerButton.setManaged(showStats);
+	    timerButton.setVisible(showStats);
+	    focusImage.setManaged(!showStats);
+	    focusImage.setVisible(!showStats);
+	}
+	
+	public void hideStatsButton() {
+	    toggleStatsButtonVisibility(false);
+	}
 
+	public void showStatsButton() {
+	    toggleStatsButtonVisibility(true);
+	}
 }

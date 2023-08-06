@@ -82,6 +82,7 @@ public class TimerPageController {
 //				e.printStackTrace();
 //			}
 //	    });
+	    
 	    switchIcon();
 	}
 	
@@ -89,11 +90,22 @@ public class TimerPageController {
 	    if (timer.isRunning) {
 	        startButton.setVisible(false);
 	        pauseButton.setVisible(true);
+	        bottomBarController.hideStatsButton();
+
 	    } else {
 	        startButton.setVisible(true);
 	        pauseButton.setVisible(false);
+	        bottomBarController.showStatsButton();
 	    }
-	    
+	    	
+	}
+	
+
+	
+	private BottomBarController bottomBarController;
+
+	public void setBottomBarController(BottomBarController controller) {
+	    this.bottomBarController = controller;
 	}
 	
 	public void timerStart(ActionEvent event) throws SQLException {
@@ -104,6 +116,7 @@ public class TimerPageController {
 	public void timerPause(ActionEvent event) throws SQLException {
         timer.pauseCountdown(timeLabel, mediaPlayer);
         switchIcon();
+        bottomBarController.hideStatsButton();
     };
 
 	public void timerStop(ActionEvent event) throws SQLException {
