@@ -66,12 +66,41 @@ public class BottomBarController implements Initializable {
 
     @FXML
     void shopPage(MouseEvent event) {
-    	loadPage("ShopPage");
+        Parent root = null;
+    	
+    	try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/ui/" + "ShopPage" +".fxml"));
+            root = loader.load();
+            // 获取Controller实例并传递参数
+            StoreController controller = loader.getController();
+		    controller.initialize(db);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    	mainFrame.setCenter(root);
+    	
+//    	loadPage("ShopPage");
     }
 
     @FXML
     void statsPage(MouseEvent event) {
-    	loadPage("StatsPage");
+        Parent root = null;
+    	
+    	try {
+    		
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/ui/" + "StatsPage" +".fxml"));
+            root = loader.load();
+            // 获取Controller实例并传递参数
+            CalendarController controller = loader.getController();
+		    controller.initialize(db);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    	mainFrame.setCenter(root);
 
     }
 

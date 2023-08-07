@@ -15,6 +15,7 @@ public class DatabaseAccessor {
             connection = DriverManager.getConnection("jdbc:sqlite:" + url);
             statement = connection.createStatement();
             initDatabase();
+            statement.close();
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
@@ -26,7 +27,7 @@ public class DatabaseAccessor {
         try {
             String sql = String.format(CREATE, tableName, String.join(",", columns));
             statement.executeUpdate(sql);
-            statement.close();
+            
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
@@ -112,7 +113,7 @@ public class DatabaseAccessor {
        
         createTableIfNotExists("LEAF", leafColumns);
         
-    	
+        
     }
 
 }

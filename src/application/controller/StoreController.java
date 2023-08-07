@@ -45,7 +45,7 @@ import java.util.HashMap;
 
 
 
-public class StoreController implements Initializable{
+public class StoreController{
 	private Stage stage;
 	private Scene scene;
 	private Parent root;
@@ -53,7 +53,7 @@ public class StoreController implements Initializable{
 	Font ubuntuFont;
 	private Music music;
 	HashMap<Integer, Button> buttonMap = new HashMap<Integer, Button>();
-
+	DatabaseAccessor db;
 	
 	
 	
@@ -85,7 +85,7 @@ public class StoreController implements Initializable{
 
 	
 	
-	DatabaseAccessor db = new DatabaseAccessor("database.db");
+	
 	
 	void relateButtontoId() {
 		buttonMap.put(1, buyButton1);
@@ -278,10 +278,9 @@ public class StoreController implements Initializable{
 	
 
 
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {	
+	public void initialize(DatabaseAccessor db) {	
 		relateButtontoId();
-		
+		this.db = db;
 		this.ubuntuFont = Font.loadFont(getClass().getResourceAsStream("/resource/fonts/Ubuntu-Regular.ttf"), 16);
 		try {
 			setButton();

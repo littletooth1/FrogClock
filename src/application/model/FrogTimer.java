@@ -29,12 +29,14 @@ public class FrogTimer extends Data{
 	public boolean isRunning;
 
 	private AnimationTimer currentTimer;
+	DatabaseAccessor db;
 
-	public FrogTimer() {
+	public FrogTimer(DatabaseAccessor db) {
         isBreak = false;
         isRunning = false;
+        this.db = db;
     	try {
-    		DatabaseAccessor db = new DatabaseAccessor("database.db");
+    		
 			Statement statement = db.getConnection().createStatement();
 			ResultSet resultSet = statement.executeQuery("SELECT sessionLength, breakLength FROM SETTING WHERE ID = 'SETTING'");
 			if (resultSet.next()) {
@@ -45,7 +47,6 @@ public class FrogTimer extends Data{
 			    lastSession = timeRemaining;
 			    lastBreak = breakTimeRemaining;
 			}
-			db.getConnection().close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -107,16 +108,7 @@ public class FrogTimer extends Data{
             String taskFinishDate = LocalDateTime.now().format(dateFormatter);
 
     		Leaf leaf = new Leaf(taskFinishTime, taskFinishDate, taskName, 5);
-
-        	try {
-        		DatabaseAccessor db = new DatabaseAccessor("database.db");
-        		leaf.addToDB(db);
-    			db.getConnection().close();
-
-    		} catch (SQLException e) {
-    			// TODO Auto-generated catch block
-    			e.printStackTrace();
-    		}
+    		leaf.addToDB(db);
 
     		ButtonType alertButton = new ButtonType("Ok");
             Alert alert = new Alert(AlertType.NONE, "Time's up, let's have a break!", alertButton);

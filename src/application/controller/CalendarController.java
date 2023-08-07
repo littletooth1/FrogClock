@@ -61,22 +61,21 @@ public class CalendarController {
 	
 	private HashMap<LocalDate, HashMap<String, Integer>> taskCountMap = new HashMap<>();
 	
-	public void initialize() {
+	public void initialize(DatabaseAccessor db) {
 		this.architectFont = Font.loadFont(getClass().getResourceAsStream("/resource/fonts/ArchitectsDaughter-Regular.ttf"), 16);
 		this.ubuntuFont = Font.loadFont(getClass().getResourceAsStream("/resource/fonts/Ubuntu-Regular.ttf"), 16);
 		today = ZonedDateTime.now();
-	    loadTasks();
+	    loadTasks(db);
 	    System.out.println("taskMap: " + taskMap);
 	    System.out.println("taskCountMap: " + taskCountMap);
 		createCalendar();
 	    createSticker();
 	}
 		
-	private void loadTasks() {
+	private void loadTasks(DatabaseAccessor db) {
 		
 		
     	try {
-    		DatabaseAccessor db = new DatabaseAccessor("database.db");
 			Statement statement = db.getConnection().createStatement();
 	        ResultSet resultSet = statement.executeQuery("SELECT taskName, date FROM LEAF");
 			while (resultSet.next()) {
@@ -92,7 +91,6 @@ public class CalendarController {
 			}
 	        resultSet.close();
 	        statement.close();
-			db.getConnection().close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

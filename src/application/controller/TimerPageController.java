@@ -88,7 +88,7 @@ public class TimerPageController {
 			taskPannel.getChildren().add(createTaskCard(task));
 		}
 		
-	    timer = new FrogTimer();
+	    timer = new FrogTimer(db);
 	    timer.updateTimeLabel(timeLabel, timer.timeRemaining);
 	    BooleanProperty isRunningProperty = new SimpleBooleanProperty(timer.isRunning);
 	    MusicRelated music = new MusicRelated();
