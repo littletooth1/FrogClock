@@ -18,7 +18,10 @@ public abstract class Data {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+	public String getDeleteQuery(String key) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	private static void excuateUpdateSql(String sql, DatabaseAccessor db) {
 		try {
             Statement statement = db.getConnection().createStatement();
@@ -42,6 +45,8 @@ public abstract class Data {
 	}
 	
 	
+	
+	
 	public void addToDB(DatabaseAccessor db) {
 		String sql = getInsertQuery();
 		excuateUpdateSql(sql,db);
@@ -54,6 +59,14 @@ public abstract class Data {
 		excuateUpdateSql(sql,db);
         System.out.println("Update data successfully" + this.getClass());
 	}
+	
+	public void deleteFromDB(DatabaseAccessor db, String key) {
+		String sql = getDeleteQuery(key);
+		System.out.println(sql);
+		excuateUpdateSql(sql,db);
+        System.out.println("Update data successfully" + this.getClass());
+	}
+
 	
 
 }

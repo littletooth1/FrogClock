@@ -15,6 +15,8 @@ public class Task extends Data {
 	private final static String tableName = "TASK";
     private static final String INSERT_TASK_QUERY = "INSERT INTO %s (taskName,isActive) " + "VALUES ('%s', %s);";
     private static final String UPDATE_TASK_QUERY = "UPDATE %s SET taskName = '%s', isActive = %s where taskName = '%s'";
+    private static final String DELETE_TASK_QUERY = "DELETE FROM %s where taskName = '%s'";
+
 
 
 	public Task(String name, boolean isActive) {
@@ -52,9 +54,17 @@ public class Task extends Data {
 	@Override
 	public String getUpdateQuery(String oldTaskName) {		
 		String s =  String.format(UPDATE_TASK_QUERY, tableName, taskName, isActive, oldTaskName);
+		return s;
+	}
+	
+	@Override
+	public String getDeleteQuery(String oldTaskName) {		
+		String s =  String.format(DELETE_TASK_QUERY, tableName, taskName);
 		System.out.println(s);
 		return s;
 	}
+	
+	
 
 	public static List<Task> getActiveTasks(DatabaseAccessor db, Statement statement) {
 		String sql = "SELECT * From TASK";

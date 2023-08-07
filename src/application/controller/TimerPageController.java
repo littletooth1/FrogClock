@@ -154,7 +154,8 @@ public class TimerPageController {
 		checkbox.setOnAction((e)->{
 			task.setIsActive(!checkbox.isSelected());
 			task.updateToDB(db, task.getTaskName());
-			taskLabel.setStyle(getLableStyle(checkbox.isSelected(),task.getTaskName() == selectedTaskName));
+			if(task.getTaskName() == selectedTaskName) unselectCard();
+			else taskLabel.setStyle(getLableStyle(checkbox.isSelected(),task.getTaskName() == selectedTaskName));
 		});
 		Button editButton = new Button("Edit");
 		editButton.setStyle(FONT_AND_SIZE + "-fx-text-fill: #805D19;; -fx-background-color: transparent;");
@@ -165,9 +166,11 @@ public class TimerPageController {
 			if(selectedTaskCard != null) {
 				unselectCard();
 			}
-			selectedTaskCard = bp;
-			selectedTaskName = task.getTaskName();
-			selectCard();
+			if(task.isActive()) {
+				selectedTaskCard = bp;
+				selectedTaskName = task.getTaskName();
+				selectCard();
+			}
 		});
 		editButton.setOnAction((e)->{
 			
@@ -181,8 +184,18 @@ public class TimerPageController {
 				editView = loder.load();
 				dialog.setScene(new Scene(editView));
 				Button saveButton = (Button) editView.getChildren().get(1);
-			    Button cancelButton = (Button) editView.getChildren().get(2);
+				Button deletelButton = (Button) editView.getChildren().get(2);
+			    Button cancelButton = (Button) editView.getChildren().get(3);
 			    TextField editInput = (TextField)editView.getChildren().get(0);
+			    editInput.setText(task.getTaskName());
+			    
+			    deletelButton.setOnAction((e2) -> {
+			    	task.deleteFromDB(db, task.getTaskName());
+			    	dialog.hide();
+					taskPannel.getChildren().remove(bp);
+			    });
+			    
+			    
 			    saveButton.setOnAction((e3) -> {
 			    	String newName = editInput.getText();
 			    	if(!newName.equals("")) {
@@ -192,26 +205,14 @@ public class TimerPageController {
 			    		taskLabel.setText(newName);
 			    	}
 			    	System.out.println("saveButton clicked");
-			        
-//			        dialogPane.setStyle("-fx-background-color: transparent;\n"
-//			        		+ "    -fx-background-radius: 0;\n"
-//			        		+ "    -fx-background-insets: 0;");
-//			        dialogPane.getButtonTypes().add(ButtonType.CANCEL);
-				    dialog.hide();
-//			        dialogPane.getButtonTypes().remove(ButtonType.CANCEL);
+			       	dialog.hide();
 
 			    });
 			    cancelButton.setOnAction((e4)->{
-//			    	System.out.println("cancelButton clicked");
-//			        dialogPane.getButtonTypes().add(ButtonType.CANCEL);
 			        dialog.hide();
-//			        dialogPane.getButtonTypes().remove(ButtonType.CANCEL);
 			    });
 			    
-			    
-//			    dialog.getDialogPane().setContent(editView);
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
+						} catch (Exception e1) {
 				e1.printStackTrace();
 			}
 		    
@@ -239,7 +240,7 @@ public class TimerPageController {
 			Task task = new Task(newTaskName,true);
 			task.addToDB(db);
 			newTaskTextField.setText("");
-			taskPannel.getChildren().add(createTaskCard(task));
+			taskPannel.getChildren().add(0, createTaskCard(task));
 		}
 	}
 	
@@ -256,6 +257,7 @@ public class TimerPageController {
 	private void unselectCard() {
 		CheckBox active = (CheckBox) selectedTaskCard.getLeft();
 		boolean isActive = !active.isSelected();
+		selectedTaskName = "Free Frog Time";
 		selectedTaskCard.setStyle("-fx-background-color: #F5F4FB");
 		selectedTaskCard.getCenter().setStyle(isActive ? "-fx-font-family: 'Apple LiGothic Medium'; -fx-font-size: 20; -fx-fill: #805D19;" : "-fx-strikethrough: true; -fx-font-family: 'Apple LiGothic Medium'; -fx-font-size: 20; -fx-fill: #805D19;");
 		selectedTaskCard.getRight().setStyle("-fx-font-family: 'Apple LiGothic Medium'; -fx-font-size: 20; -fx-text-fill: #805D19; -fx-background-color: transparent;");

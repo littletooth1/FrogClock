@@ -70,8 +70,9 @@ public class SettingPageController {
     	breakLengthLabel.setText("" + len);
     	if(len < 2) {
     		breakReduceButton.setDisable(true);
-    	} else {
-    		breakReduceButton.setDisable(false);
+    	} 
+    	if(len < 15) {
+    		breakAddButton.setDisable(false);
     	}
     	setting.updateToDB(db, "SETTING");
     }
@@ -81,6 +82,12 @@ public class SettingPageController {
     void breakAddOne(ActionEvent event) {
     	setting.breakAddOne();
     	int len = setting.getBreakLength();
+    	if(len >= 2) {
+    		breakReduceButton.setDisable(false);
+    	}
+    	if(len >= 15) {
+    		breakAddButton.setDisable(true);
+    	}
     	breakLengthLabel.setText("" + len);
     	setting.updateToDB(db, "SETTING");
     }
@@ -89,6 +96,13 @@ public class SettingPageController {
     void sessionAddOne(ActionEvent event) {
     	setting.sessionAddOne();
     	sessionLengthLabel.setText("" + setting.getSessionLength());
+    	int len = setting.getSessionLength();
+    	if(len >= 6) {
+    		sessionReduceButton.setDisable(false);
+    	} 
+    	if(len >= 45) {
+    		sessionAddButton.setDisable(true);
+    	}
     	setting.updateToDB(db, "SETTING");
     }
 
@@ -99,8 +113,9 @@ public class SettingPageController {
     	sessionLengthLabel.setText("" + len);
     	if(len < 6) {
     		sessionReduceButton.setDisable(true);
-    	} else {
-    		sessionReduceButton.setDisable(false);
+    	} 
+    	if(len < 45) {
+    		sessionAddButton.setDisable(false);
     	}
     	setting.updateToDB(db, "SETTING");
     	
