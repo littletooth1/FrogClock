@@ -16,7 +16,7 @@ import javafx.scene.media.Media;
 public class MusicRelated {
 	private MediaPlayer mediaPlayer;
 
-	public void playMusic() {		
+	public void playMusic(DatabaseAccessor db) {
 	    String path = Objects.requireNonNull(getClass().getClassLoader().getResource("resource/music/timerSound.mp3")).toString();
 	    Media sound = new Media(path);
 	    mediaPlayer = new MediaPlayer(sound);

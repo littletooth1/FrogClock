@@ -24,6 +24,7 @@ public class FrogTimer extends Data{
 	long lastBreak;
 	long breakTimeRemaining;
     long lastUpdate = 0;
+    boolean isEndOn; 
 
 	private boolean isBreak;
 	public boolean isRunning;
@@ -38,14 +39,16 @@ public class FrogTimer extends Data{
     	try {
     		
 			Statement statement = db.getConnection().createStatement();
-			ResultSet resultSet = statement.executeQuery("SELECT sessionLength, breakLength FROM SETTING WHERE ID = 'SETTING'");
+			ResultSet resultSet = statement.executeQuery("SELECT sessionLength, breakLength, isEndOn FROM SETTING WHERE ID = 'SETTING'");
 			if (resultSet.next()) {
 			    int timeFromDb = resultSet.getInt("sessionLength");
 			    int breakTimeFromDb = resultSet.getInt("breakLength");
+			    isEndOn = resultSet.getBoolean("isEndOn");
 			    timeRemaining = timeFromDb * 60 * 1_000_000_000L;
 			    breakTimeRemaining = breakTimeFromDb * 60 * 1_000_000_000L;
 			    lastSession = timeRemaining;
 			    lastBreak = breakTimeRemaining;
+			    
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -97,7 +100,9 @@ public class FrogTimer extends Data{
     		
     		//play end music
     		MusicRelated music = new MusicRelated();
-    	    music.playMusic();
+    		if (isEndOn == true) {
+        	    music.playMusic(db);
+    		}
     	    if (mediaPlayer != null) mediaPlayer.stop();
 
     	    
