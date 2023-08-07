@@ -13,8 +13,8 @@ public class Task extends Data {
 	private String taskName;
 	private boolean isActive;
 	private final static String tableName = "TASK";
-    private static final String INSERT_TASK_QUERY = "INSERT INTO %s (taskName,isActive) " + "VALUES ('%s', '%s');";
-    private static final String UPDATE_TASK_QUERY = "UPDATE %s SET taskName = '%s', isActive = '%s' where taskName = '%s'";
+    private static final String INSERT_TASK_QUERY = "INSERT INTO %s (taskName,isActive) " + "VALUES ('%s', %s);";
+    private static final String UPDATE_TASK_QUERY = "UPDATE %s SET taskName = '%s', isActive = %s where taskName = '%s'";
 
 
 	public Task(String name, boolean isActive) {
@@ -39,6 +39,10 @@ public class Task extends Data {
 		return taskName;
 	}
 	
+	public boolean isActive() {
+		return isActive;
+	}
+	
 
 	@Override
 	public String getInsertQuery() {
@@ -53,7 +57,7 @@ public class Task extends Data {
 	}
 
 	public static List<Task> getActiveTasks(DatabaseAccessor db, Statement statement) {
-		String sql = "SELECT * From TASK WHERE isActive = 'true'";
+		String sql = "SELECT * From TASK";
 		List<Task> activeTasks = new ArrayList<>(); 
 
 		try {

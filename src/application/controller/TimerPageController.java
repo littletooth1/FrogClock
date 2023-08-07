@@ -1,5 +1,6 @@
 package application.controller;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -8,11 +9,13 @@ import java.util.List;
 import DatabaseConnection.DatabaseAccessor;
 import application.model.FrogTimer;
 import application.model.Task;
+import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.BorderPane;
@@ -21,10 +24,21 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.StageStyle;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogPane;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
 
 
 public class TimerPageController {
@@ -34,6 +48,11 @@ public class TimerPageController {
 	String selectedTaskName;
 	Font font;
 	MediaPlayer mediaPlayer;
+	private static final String FONT_AND_SIZE = "-fx-font-family: 'Apple LiGothic Medium'; -fx-font-size: 20;";
+	private static final String WHITE = "-fx-fill: white;";
+	private static final String BROWN = "-fx-fill: #805D19;";
+	private static final String LINE_THROUGH = "-fx-strikethrough: true;";
+	
 
     @FXML
     private Button addNewTaskButton;
@@ -128,18 +147,17 @@ public class TimerPageController {
 		BorderPane bp = new BorderPane();
 		CheckBox checkbox = new CheckBox();
 		Text taskLabel = new Text(task.getTaskName());
-		taskLabel.setStyle("-fx-font-family: 'Apple LiGothic Medium'; -fx-font-size: 20; -fx-fill: #805D19;" );
+		taskLabel.setWrappingWidth(150);
+		System.out.println(task.getTaskName() + " " + task.isActive());
+		checkbox.setSelected(!task.isActive());
+		taskLabel.setStyle(getLableStyle(checkbox.isSelected(),task.getTaskName() == selectedTaskName));
 		checkbox.setOnAction((e)->{
 			task.setIsActive(!checkbox.isSelected());
 			task.updateToDB(db, task.getTaskName());
-			if(checkbox.isSelected()) {
-				taskLabel.setStyle("-fx-strikethrough: true;-fx-font-family: 'Apple LiGothic Medium'; -fx-font-size: 20; -fx-fill: #805D19;");
-			} else {
-				taskLabel.setStyle("-fx-strikethrough: false;-fx-font-family: 'Apple LiGothic Medium'; -fx-font-size: 20; -fx-fill: #805D19;");
-			}
+			taskLabel.setStyle(getLableStyle(checkbox.isSelected(),task.getTaskName() == selectedTaskName));
 		});
 		Button editButton = new Button("Edit");
-		editButton.setStyle("-fx-font-family: 'Apple LiGothic Medium'; -fx-font-size: 20; -fx-text-fill: #805D19;; -fx-background-color: transparent;");
+		editButton.setStyle(FONT_AND_SIZE + "-fx-text-fill: #805D19;; -fx-background-color: transparent;");
 		bp.setLeft(checkbox);
 		bp.setCenter(taskLabel);
 		bp.setRight(editButton);
@@ -152,6 +170,54 @@ public class TimerPageController {
 			selectCard();
 		});
 		editButton.setOnAction((e)->{
+			
+			
+			FXMLLoader loder = new FXMLLoader(getClass().getResource("/application/ui/" + "UpdateTaskDialogue" +".fxml"));
+			Stage dialog = new Stage();
+			dialog.initModality(Modality.APPLICATION_MODAL);
+			dialog.initStyle(StageStyle.TRANSPARENT);
+			VBox editView;
+			try {
+				editView = loder.load();
+				dialog.setScene(new Scene(editView));
+				Button saveButton = (Button) editView.getChildren().get(1);
+			    Button cancelButton = (Button) editView.getChildren().get(2);
+			    TextField editInput = (TextField)editView.getChildren().get(0);
+			    saveButton.setOnAction((e3) -> {
+			    	String newName = editInput.getText();
+			    	if(!newName.equals("")) {
+			    		String oldName = task.getTaskName();
+			    		task.setTaskName(newName);
+			    		task.updateToDB(db, oldName);
+			    		taskLabel.setText(newName);
+			    	}
+			    	System.out.println("saveButton clicked");
+			        
+//			        dialogPane.setStyle("-fx-background-color: transparent;\n"
+//			        		+ "    -fx-background-radius: 0;\n"
+//			        		+ "    -fx-background-insets: 0;");
+//			        dialogPane.getButtonTypes().add(ButtonType.CANCEL);
+				    dialog.hide();
+//			        dialogPane.getButtonTypes().remove(ButtonType.CANCEL);
+
+			    });
+			    cancelButton.setOnAction((e4)->{
+//			    	System.out.println("cancelButton clicked");
+//			        dialogPane.getButtonTypes().add(ButtonType.CANCEL);
+			        dialog.hide();
+//			        dialogPane.getButtonTypes().remove(ButtonType.CANCEL);
+			    });
+			    
+			    
+//			    dialog.getDialogPane().setContent(editView);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		    
+		    dialog.showAndWait();
+			
+			
 				
 		});
 		BorderPane.setAlignment(checkbox, Pos.CENTER_LEFT);
@@ -162,6 +228,9 @@ public class TimerPageController {
 		bp.setPadding(new Insets(2,8,2,8));
 		return bp;
 	}
+	
+	
+	
 	
 	@FXML
 	private void addNewTask() {
@@ -175,20 +244,41 @@ public class TimerPageController {
 	}
 	
 	private void selectCard() {
+		CheckBox active = (CheckBox) selectedTaskCard.getLeft();
+		boolean isActive = !active.isSelected();
+		
 		selectedTaskCard.setStyle("-fx-background-color: #4A8229; -fx-background-radius: 10;");
-		selectedTaskCard.getCenter().setStyle("-fx-font-family: 'Apple LiGothic Medium'; -fx-font-size: 20;-fx-fill: white");
+		selectedTaskCard.getCenter().setStyle(isActive ? "-fx-font-family: 'Apple LiGothic Medium'; -fx-font-size: 20;-fx-fill: white" : "-fx-strikethrough: true; -fx-font-family: 'Apple LiGothic Medium'; -fx-font-size: 20;-fx-fill: white" );
 		selectedTaskCard.getRight().setStyle("-fx-font-family: 'Apple LiGothic Medium'; -fx-font-size: 20; -fx-text-fill: white; -fx-background-color: transparent;");
 		
-
 	}
 	
 	private void unselectCard() {
+		CheckBox active = (CheckBox) selectedTaskCard.getLeft();
+		boolean isActive = !active.isSelected();
 		selectedTaskCard.setStyle("-fx-background-color: #F5F4FB");
-		selectedTaskCard.getCenter().setStyle("-fx-font-family: 'Apple LiGothic Medium'; -fx-font-size: 20; -fx-fill: #805D19;");
-		selectedTaskCard.getRight().setStyle("-fx-font-family: 'Apple LiGothic Medium'; -fx-font-size: 20; -fx-text-fill: #805D19;; -fx-background-color: transparent;");
+		selectedTaskCard.getCenter().setStyle(isActive ? "-fx-font-family: 'Apple LiGothic Medium'; -fx-font-size: 20; -fx-fill: #805D19;" : "-fx-strikethrough: true; -fx-font-family: 'Apple LiGothic Medium'; -fx-font-size: 20; -fx-fill: #805D19;");
+		selectedTaskCard.getRight().setStyle("-fx-font-family: 'Apple LiGothic Medium'; -fx-font-size: 20; -fx-text-fill: #805D19; -fx-background-color: transparent;");
 	}
 
 	public String getSelectedTaskName() {
 		return selectedTaskName;
+	}
+	
+	private String getLableStyle(boolean isChecked, boolean isSelected) {
+		if(isSelected) {
+			if(isChecked) {
+				return LINE_THROUGH + FONT_AND_SIZE + WHITE;
+			} else {
+				return FONT_AND_SIZE + WHITE;
+			}
+		} else {
+			if(isChecked) {
+				return LINE_THROUGH + FONT_AND_SIZE + BROWN;
+			} else {
+				return FONT_AND_SIZE + BROWN;
+			}
+		}
+		
 	}
 }

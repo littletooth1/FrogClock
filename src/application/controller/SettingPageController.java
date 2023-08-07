@@ -23,6 +23,7 @@ public class SettingPageController {
 	Setting setting;
 	DatabaseAccessor db;
 	List<Music> musics;
+	int curBgmIndex;
 	
     @FXML
     private CheckBox backgroundOnCheckbox;
@@ -73,7 +74,6 @@ public class SettingPageController {
     		breakReduceButton.setDisable(false);
     	}
     	setting.updateToDB(db, "SETTING");
-    	
     }
 
     
@@ -134,29 +134,37 @@ public class SettingPageController {
 		breakLengthLabel.setText("" + setting.getBreakLength());
 		endOnCheckbox.setSelected(setting.isEndOn());
 		backgroundOnCheckbox.setSelected(setting.isBackgroundOn());
+		
 		int bgmId = setting.getBgmID();
-		musicNameLabel.setText(musics.get(bgmId - 1).getMusicName());
+		curBgmIndex = 0;
+		for(int i = 0; i < musics.size(); i++) {
+			if(musics.get(i).getMusicId() == bgmId) {
+				curBgmIndex = i;
+				break;
+			}
+		}
+		musicNameLabel.setText(musics.get(curBgmIndex).getMusicName());
 	}
-	
-	
 	
     @FXML
     void musicLeft(ActionEvent event) {
-    	int size = musics.size();
-    	int curId = setting.getBgmID();
-    	setting.setBgmId((curId - 1 + size) % size);
-    	setting.updateToDB(db, "SETTING");
-    	musicNameLabel.setText(musics.get(setting.getBgmID()).getMusicName());
-
+    	changeMusic(-1);
     }
 
     @FXML
     void musicRight(ActionEvent event) {
+    	changeMusic(1);
+    	
+    }
+    
+    void changeMusic(int n) {
     	int size = musics.size();
-    	int curId = setting.getBgmID();
-    	setting.setBgmId((curId + 1 ) % size);
+    	curBgmIndex = (curBgmIndex + n + size) % size;
+    	Music newBgm = musics.get(curBgmIndex);
+    	setting.setBgmId(newBgm.getMusicId());
     	setting.updateToDB(db, "SETTING");
-    	musicNameLabel.setText(musics.get(setting.getBgmID()).getMusicName());
+    	musicNameLabel.setText(newBgm.getMusicName());
+ 
     }
 
 }
