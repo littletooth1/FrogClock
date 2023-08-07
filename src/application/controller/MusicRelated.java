@@ -30,16 +30,20 @@ public class MusicRelated {
 	public MediaPlayer getMusicPath(DatabaseAccessor db, Statement statement) throws SQLException {
 		//Get bgmID
 				Setting currentSetting = Setting.getSetting(db, statement);
-				int bgmID = currentSetting.getBgmID();
-				statement.close();
-				Statement next_statement = db.getConnection().createStatement(); 
-				 //Get musicURL
-				Music music = Music.gettMusic(db, next_statement, bgmID);
+				boolean isBackgroundOn = currentSetting.isBackgroundOn();
+				if (isBackgroundOn == false) {
+					return null;
+				}
+				System.out.println(isBackgroundOn);
 				
-				System.out.println(music.getMusicURL());
+				int bgmID = currentSetting.getBgmID();
+				System.out.println(bgmID);
 
+				 //Get musicURL
+				Music music = Music.gettMusic(db, statement, bgmID);
+				System.out.println(music.getMusicURL());
 				String path = Objects.requireNonNull(getClass().getClassLoader().getResource(music.getMusicURL())).toString();
-				next_statement.close();
+				statement.close();
 				Media sound = new Media(path);
 			    mediaPlayer = new MediaPlayer(sound);
 			    mediaPlayer.statusProperty().addListener((obs, oldStatus, newStatus) -> {
@@ -52,20 +56,27 @@ public class MusicRelated {
 	
 	 static public void playBackGround(MediaPlayer mediaPlayer, boolean isRunning, boolean isBreak) throws SQLException {
 		 
-	    	  // If the isRunning is true, play the media
-	    	  if (isRunning == true && isBreak == false) {
-	    	    mediaPlayer.play();
-	    	    
-	    	  } 
-	    	  else if(isRunning == false && isBreak == false){
-	    		mediaPlayer.stop();
-	    		  
-	    	  }
-	    	  
-	    	  else {
-	    	    // If the isRunning is false, pause the media
-	    	    mediaPlayer.pause();
-	    	  }
+		 if (mediaPlayer == null) {
+			  return;// do nothing 
+			} else {
+				  // If the isRunning is true, play the media
+		    	  if (isRunning == true && isBreak == false) {
+		    	    mediaPlayer.play();
+		    	    
+		    	  } 
+		    	  else if(isRunning == false && isBreak == false){
+		    		mediaPlayer.stop();
+		    		  
+		    	  }
+		    	  
+		    	  else {
+		    	    // If the isRunning is false, pause the media
+		    	    mediaPlayer.pause();
+		    	  }
+			}
+		 return;
+		 
+	    	
 	 }
 	 
 	

@@ -73,7 +73,7 @@ public class FrogTimer extends Data{
 				}
 		        
 	            if (isBreak) {
-	                handleBreak(now, timeLabel, controller);
+	                handleBreak(now, timeLabel, controller, mediaPlayer);
 	            } else {
 	                handleSession(now, timeLabel,controller.getSelectedTaskName(),mediaPlayer);
 	            }
@@ -98,7 +98,7 @@ public class FrogTimer extends Data{
     		//play end music
     		MusicRelated music = new MusicRelated();
     	    music.playMusic();
-    	    mediaPlayer.stop();
+    	    if (mediaPlayer != null) mediaPlayer.stop();
 
     	    
             DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
@@ -126,7 +126,7 @@ public class FrogTimer extends Data{
         } 
 	}
 
-	public void handleBreak(long now, Label timeLabel, TimerPageController controller) {
+	public void handleBreak(long now, Label timeLabel, TimerPageController controller, MediaPlayer mediaPlayer) {
         if (timeRemaining <= lastBreak - 5 * 1_000_000_000L) {
         	currentTimer.stop();
     		isRunning = false;    		
@@ -134,7 +134,12 @@ public class FrogTimer extends Data{
         	ButtonType alerButtonForBreak = new ButtonType("Ok");
             Alert alert = new Alert(AlertType.NONE, "Time's up, let's get back to work!", alerButtonForBreak);
             alert.setOnHidden(event -> {
-                stopCountdown(timeLabel);
+                try {
+					stopCountdown(timeLabel,mediaPlayer);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
                 controller.switchIcon();
             });
             alert.show();
@@ -153,13 +158,14 @@ public class FrogTimer extends Data{
 
 	}
 
-	public void stopCountdown(Label timeLabel){
+	public void stopCountdown(Label timeLabel, MediaPlayer mediaPlayer) throws SQLException{
 		currentTimer.stop();
 		timeRemaining = lastSession;
 
 		isBreak = false;
 		isRunning = false;
 		updateTimeLabel(timeLabel, timeRemaining);
+		MusicRelated.playBackGround(mediaPlayer,isRunning, isBreak);
 	}
 
 	public void updateTimeLabel(Label timeLabel, long time) {

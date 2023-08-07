@@ -110,7 +110,7 @@ public class StoreController{
 			result = leavesSpent.getInt("totalCost");
 		}
 		statement.close();
-		return leavesEarned - result;	
+ 		return leavesEarned - result;	
 	
 	}
 	

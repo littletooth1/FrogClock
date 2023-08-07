@@ -159,6 +159,7 @@ public class SettingPageController {
 			}
 		}
 		musicNameLabel.setText(musics.get(curBgmIndex).getMusicName());
+
 	}
 	
     @FXML

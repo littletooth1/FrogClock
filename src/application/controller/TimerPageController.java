@@ -90,7 +90,6 @@ public class TimerPageController {
 		
 	    timer = new FrogTimer(db);
 	    timer.updateTimeLabel(timeLabel, timer.timeRemaining);
-	    BooleanProperty isRunningProperty = new SimpleBooleanProperty(timer.isRunning);
 	    MusicRelated music = new MusicRelated();
 	    mediaPlayer = music.getMusicPath(db, statement);
 //	    isRunningProperty.addListener((observable, oldValue, newValue) -> {
@@ -139,7 +138,7 @@ public class TimerPageController {
     };
 
 	public void timerStop(ActionEvent event) throws SQLException {
-		timer.stopCountdown(timeLabel);
+		timer.stopCountdown(timeLabel,mediaPlayer);
 		switchIcon();
 	};
 	
