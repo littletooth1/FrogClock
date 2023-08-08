@@ -109,7 +109,7 @@ public class FrogTimer extends Data{
             DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
             DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-            String taskFinishTime = LocalDateTime.now().format(timeFormatter);
+            String taskFinishTime = LocalDateTime.now().format(dateFormatter)+" "+LocalDateTime.now().format(timeFormatter);
             String taskFinishDate = LocalDateTime.now().format(dateFormatter);
 
     		Leaf leaf = new Leaf(taskFinishTime, taskFinishDate, taskName, 5);

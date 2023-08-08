@@ -1,5 +1,8 @@
 package DatabaseConnection;
 import java.sql.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import application.model.*;
 
 
@@ -105,14 +108,20 @@ public class DatabaseAccessor {
         
         if(!isTableExists("SETTING")) {
             createTableIfNotExists("SETTING", settingColumns);
-    		Setting setting = new Setting(25,5,false,true,1);
+    		Setting setting = new Setting(25,5,true,true,1);
     		setting.addToDB(this);
         }
         
     	createTableIfNotExists("TASK", taskColumns);
        
-        createTableIfNotExists("LEAF", leafColumns);
-        
+        if(!isTableExists("LEAF")) {
+            createTableIfNotExists("LEAF", leafColumns);
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            String sampleTaskFinishTime = LocalDateTime.now().format(dateFormatter) + " " + "00:00:00";
+            String sampleDate = LocalDateTime.now().format(dateFormatter);
+    		Leaf leaf = new Leaf(sampleTaskFinishTime, sampleDate,"Try Frog Clock", 10);
+    		leaf.addToDB(this);
+        }
         
     }
 
