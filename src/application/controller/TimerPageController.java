@@ -1,18 +1,12 @@
 package application.controller;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 
 import DatabaseConnection.DatabaseAccessor;
 import application.model.FrogTimer;
 import application.model.Task;
-import javafx.application.Platform;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,24 +15,16 @@ import javafx.geometry.Pos;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.StageStyle;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.DialogPane;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 
 
 public class TimerPageController {
@@ -59,9 +45,6 @@ public class TimerPageController {
 
     @FXML
     private TextField newTaskTextField;
-
-//    @FXML
-//    private Text onGoingTask;
 
     @FXML
     private VBox taskPannel;
@@ -92,14 +75,6 @@ public class TimerPageController {
 	    timer.updateTimeLabel(timeLabel, timer.timeRemaining);
 	    MusicController music = new MusicController();
 	    mediaPlayer = music.getMusicPath(db, statement);
-//	    isRunningProperty.addListener((observable, oldValue, newValue) -> {
-//	    	try {
-//				music.playBackGround(mediaPlayer,timer.isRunning);
-//			} catch (SQLException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//	    });
 	    
 	    switchIcon();
 	}
@@ -216,8 +191,7 @@ public class TimerPageController {
 			}
 		    
 		    dialog.showAndWait();
-			
-			
+						
 				
 		});
 		BorderPane.setAlignment(checkbox, Pos.CENTER_LEFT);

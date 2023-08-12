@@ -44,7 +44,6 @@ import javafx.beans.property.SimpleLongProperty;
 import java.util.HashMap;
 
 
-
 public class StoreController{
 	private Stage stage;
 	private Scene scene;
@@ -54,8 +53,7 @@ public class StoreController{
 	private Music music;
 	HashMap<Integer, Button> buttonMap = new HashMap<Integer, Button>();
 	DatabaseAccessor db;
-	
-	
+		
 	
 	@FXML
 	private Label leafLabel;
@@ -80,11 +78,6 @@ public class StoreController{
 	
 	@FXML
 	private Button notBuy;
-	
-
-
-	
-	
 	
 	
 	void relateButtontoId() {
@@ -245,34 +238,6 @@ public class StoreController{
 		+ "-fx-font-size: 16; "
 		+"-fx-font-weight: bold");
         
-       // VBox vbox = new VBox();
-       // borderPane.setCenter(vbox);
-        
-      //  Label comments = new Label("Sorry, you don't have enough leaves. ");
-       // comments.setStyle("-fx-font-weight: bold; -fx-font-family: '\" + ubuntuFont.getName() + \"'");
-        
-       /* Button close = new Button("close");
-        close.setStyle("-fx-background-color: #DAEED7; "
-        		+ "-fx-background-radius: 30 30 30 30; "
-        		+ "-fx-font-size: 16; "
-				+"-fx-font-weight: bold");
-        
-        
-        vbox.getChildren().addAll(comments,close);
-        
-        close.setOnAction(e -> {
-        	dialog.hide();
-        });
-        */
-       
-       // System.out.print("I am here");
-		//vbox.getChildren().add(closeButton);
-        //System.out.print("Vbox add button");
-
-
-       // borderPane.setCenter(closeButton);
-        //BorderPane.setAlignment(closeButton, Pos.CENTER);
-        // Show the dialog and wait for the user response (button click)
         dialog.showAndWait();
 	}
 	
@@ -290,42 +255,6 @@ public class StoreController{
 			e.printStackTrace();
 		}
 		
-		
-		
-		
-	/* buyBotton1.setOnAction(event ->  {
-			
-			//pop up a message: Are you sure? Yes / No
-			
-			
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/ui/BuyAlert.fxml"));
-			BorderPane borderPane;
-			try {
-				borderPane = loader.load();
-			
-			
-			 // Get the controller for the dialog
-	        DialogController dialogController = loader.getController();
-	        dialogController.setUserData(this);
-
-
-	        // Create a new dialog using the custom content
-	        Dialog<ButtonType> dialog = new Dialog<>();
-	        dialog.initStyle(StageStyle.UNDECORATED);
-	        dialog.getDialogPane().setContent(borderPane);
-
-	        // Add a button to the dialog's button pane (for demonstration purposes)
-	        dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
-
-	        // Show the dialog and wait for the user response (button click)
-	        dialog.showAndWait();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		} );
-		
-		*/
 	}
 
 

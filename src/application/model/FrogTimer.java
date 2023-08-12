@@ -95,7 +95,10 @@ public class FrogTimer extends Data{
 	        taskName = "Free Frog Clock"; // default clock name if no task is selected
 	    }
 	    
-        if (timeRemaining <= lastSession - 5 * 1_000_000_000L) {
+//      if (timeRemaining <= lastSession - 5 * 1_000_000_000L) {
+//      you can use this for test, the clock will last 5 seconds
+        if (timeRemaining <= 0) {
+	
     		currentTimer.stop();
     		
     		//play end music
@@ -132,7 +135,11 @@ public class FrogTimer extends Data{
 	}
 
 	public void handleBreak(long now, Label timeLabel, TimerPageController controller, MediaPlayer mediaPlayer) {
-        if (timeRemaining <= lastBreak - 5 * 1_000_000_000L) {
+		
+//      if (timeRemaining <= lastBreak - 5 * 1_000_000_000L) {
+//      you can use this for test, the break will last 5 seconds
+        if (timeRemaining <= 0) {
+
         	currentTimer.stop();
     		isRunning = false;    		
 

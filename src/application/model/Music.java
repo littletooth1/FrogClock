@@ -77,7 +77,6 @@ public class Music extends Data{
 		System.out.println(s);
 		return s;
 	}
-
 	
 	
 	//add statement argument

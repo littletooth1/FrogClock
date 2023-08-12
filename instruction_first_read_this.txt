@@ -8,13 +8,13 @@ b. Navigate to Java Build Path > Libraries.
 
 c. You'll notice sqlite-jdbc is currently missing. Select it, then click Edit. Replace the library with sqlite-jdbc-3.42.0.0.jar which can be found in the zip file.
 
-d. Similarly, select JavaFX in the libraries and edit its path, this step is similar to we always do during the course.
+d. Similarly, select JavaFX in the libraries and edit its path, this step is similar to what we always do during the course.
 
 2. Adjust Run Configuration:
 
 a. Right-click on Main.java and click Run As > Run Configurations.
 
-b. In the Main page, make sure to deselect all the checkboxes.
+b. On the Main page, make sure to unselect all the checkboxes.
 
 c. Switch to f(x)= Arguments page and add the following modules to the configuration: "--add-modules javafx.controls,javafx.fxml,javafx.media", please note that we're including javafx.media, which differs from our usual class configuration.
 

@@ -53,7 +53,7 @@ public class BottomBarController implements Initializable {
     		
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/ui/" + "SettingPage" +".fxml"));
             root = loader.load();
-            // 获取Controller实例并传递参数
+            // get the controller instance and pass parameters
             SettingPageController controller = loader.getController();
 		    controller.initialize(db);
 		} catch (Exception e) {
@@ -71,7 +71,7 @@ public class BottomBarController implements Initializable {
     	try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/ui/" + "ShopPage" +".fxml"));
             root = loader.load();
-            // 获取Controller实例并传递参数
+            // get the controller instance and pass parameters
             StoreController controller = loader.getController();
 		    controller.initialize(db);
 		} catch (Exception e) {
@@ -81,7 +81,6 @@ public class BottomBarController implements Initializable {
     	
     	mainFrame.setCenter(root);
     	
-//    	loadPage("ShopPage");
     }
 
     @FXML
@@ -92,7 +91,7 @@ public class BottomBarController implements Initializable {
     		
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/ui/" + "StatsPage" +".fxml"));
             root = loader.load();
-            // 获取Controller实例并传递参数
+            // get controller instance and pass parameters
             CalendarController controller = loader.getController();
 		    controller.initialize(db);
 		} catch (Exception e) {
@@ -113,7 +112,7 @@ public class BottomBarController implements Initializable {
     		
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/ui/" + "TimerPage" +".fxml"));
             root = loader.load();
-            // 获取Controller实例并传递参数
+            // get controller instance and pass parameters
             TimerPageController controller = loader.getController();
             controller.setBottomBarController(this);
 		    controller.initialize(db);
@@ -148,7 +147,7 @@ public class BottomBarController implements Initializable {
     		
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/ui/" + "TimerPage" +".fxml"));
             root = loader.load();
-            // 获取Controller实例并传递参数
+            // get controller instance and pass parameters
             TimerPageController controller = loader.getController();
             controller.setBottomBarController(this);
 		    controller.initialize(db);

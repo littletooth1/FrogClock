@@ -10,9 +10,7 @@ public class Leaf extends Data{
 	private String date;
 	private String taskName;
 	private int leafGot;
-
-	
-	
+		
     private static final String INSERT_LEAF_QUERY = "INSERT INTO %s (taskFinishTime, date, taskName, leafGot) " + "VALUES ('%s', '%s','%s', '%s');";
     private static final String UPDATE_LEAF_QUERY = "UPDATE %s SET leafNumber = '%s' where userName = '%s'";
 

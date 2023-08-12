@@ -18,7 +18,6 @@ public class Task extends Data {
     private static final String DELETE_TASK_QUERY = "DELETE FROM %s where taskName = '%s'";
 
 
-
 	public Task(String name, boolean isActive) {
 		this.taskName = name;
 		this.isActive = isActive;

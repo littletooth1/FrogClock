@@ -27,7 +27,6 @@ public class Main extends Application {
 	
 	
 	public static void main(String[] args) throws SQLException {
-		System.out.println("Haha");
 				
 //		launch application
 		launch(args);
