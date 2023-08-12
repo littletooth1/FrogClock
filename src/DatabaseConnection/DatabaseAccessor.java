@@ -118,7 +118,7 @@ public class DatabaseAccessor {
             createTableIfNotExists("LEAF", leafColumns);
             DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             String sampleTaskFinishTime = LocalDateTime.now().format(dateFormatter) + " " + "00:00:00";
-            String sampleDate = LocalDateTime.now().format(dateFormatter);
+            String sampleDate = LocalDateTime.now().minusDays(1).format(dateFormatter);
     		Leaf leaf = new Leaf(sampleTaskFinishTime, sampleDate,"Try Frog Clock", 10);
     		leaf.addToDB(this);
         }

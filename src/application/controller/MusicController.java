@@ -13,7 +13,7 @@ import application.model.Setting;
 import javafx.scene.media.Media;
 
 
-public class MusicRelated {
+public class MusicController {
 	private MediaPlayer mediaPlayer;
 
 	public void playMusic(DatabaseAccessor db) {

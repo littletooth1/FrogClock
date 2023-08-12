@@ -90,7 +90,7 @@ public class TimerPageController {
 		
 	    timer = new FrogTimer(db);
 	    timer.updateTimeLabel(timeLabel, timer.timeRemaining);
-	    MusicRelated music = new MusicRelated();
+	    MusicController music = new MusicController();
 	    mediaPlayer = music.getMusicPath(db, statement);
 //	    isRunningProperty.addListener((observable, oldValue, newValue) -> {
 //	    	try {

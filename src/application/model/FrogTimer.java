@@ -8,7 +8,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 import DatabaseConnection.DatabaseAccessor;
-import application.controller.MusicRelated;
+import application.controller.MusicController;
 import application.controller.TimerPageController;
 import javafx.animation.AnimationTimer;
 import javafx.scene.control.Alert.AlertType;
@@ -69,7 +69,7 @@ public class FrogTimer extends Data{
 		        }
 		        
 				try {
-					MusicRelated.playBackGround(mediaPlayer,isRunning, isBreak);
+					MusicController.playBackGround(mediaPlayer,isRunning, isBreak);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -99,7 +99,7 @@ public class FrogTimer extends Data{
     		currentTimer.stop();
     		
     		//play end music
-    		MusicRelated music = new MusicRelated();
+    		MusicController music = new MusicController();
     		if (isEndOn == true) {
         	    music.playMusic(db);
     		}
@@ -159,7 +159,7 @@ public class FrogTimer extends Data{
 		lastUpdate = 0;
 		isRunning = false;
 		updateTimeLabel(timeLabel, timeRemaining);
-		MusicRelated.playBackGround(mediaPlayer,isRunning, isBreak);
+		MusicController.playBackGround(mediaPlayer,isRunning, isBreak);
 
 	}
 
@@ -170,7 +170,7 @@ public class FrogTimer extends Data{
 		isBreak = false;
 		isRunning = false;
 		updateTimeLabel(timeLabel, timeRemaining);
-		MusicRelated.playBackGround(mediaPlayer,isRunning, isBreak);
+		MusicController.playBackGround(mediaPlayer,isRunning, isBreak);
 	}
 
 	public void updateTimeLabel(Label timeLabel, long time) {
