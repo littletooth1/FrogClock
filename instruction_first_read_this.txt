@@ -18,4 +18,8 @@ b. On the Main page, make sure to unselect all the checkboxes.
 
 c. Switch to f(x)= Arguments page and add the following modules to the configuration: "--add-modules javafx.controls,javafx.fxml,javafx.media", please note that we're including javafx.media, which differs from our usual class configuration.
 
+3. Test Mode (Optional):
+
+a. Start by deleting the database.db file. Then, within src/application/model/FrogTimer.java, uncomment lines 98 and 139, and comment out lines 100 and 141. Relaunch the application. Both the clock and break sessions will be reduced to 5 seconds for a quicker test experience.
+
 Now you're all set! Launch the application and enjoy!
